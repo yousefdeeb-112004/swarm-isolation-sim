@@ -1,0 +1,263 @@
+[*] Using default configuration
+[*] Sweep mode: generation_length (4 conditions × 30 seeds = 120 runs)
+[*] Parallel mode: 12 workers
+
+[*] Parallel execution: 12 workers, 120 jobs
+[*] Conditions: 4, Seeds: 30
+Process ForkPoolWorker-2:
+Process ForkPoolWorker-4:
+Process ForkPoolWorker-3:
+Process ForkPoolWorker-1:
+Process ForkPoolWorker-11:
+Process ForkPoolWorker-8:
+Process ForkPoolWorker-6:
+Traceback (most recent call last):
+Traceback (most recent call last):
+Process ForkPoolWorker-10:
+Process ForkPoolWorker-7:
+Traceback (most recent call last):
+Process ForkPoolWorker-9:
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/lib/python3.12/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/experiments/extended.py", line 556, in _run_single_experiment
+    return exp.run(seed=seed, verbose=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/experiments/extended.py", line 417, in run
+    treat_m = self.treatment_world.step()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/core/world.py", line 139, in step
+    agent.observe(obs)
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/agents/agent.py", line 278, in observe
+    self._update_inner_state_nn(observation)
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/agents/agent.py", line 487, in _update_inner_state_nn
+    belief_vec = self.belief_network.get_belief_vector(self.x, self.y, radius=2)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/agents/bayesian.py", line 375, in get_belief_vector
+    features[py, px, 3] = self.confidence[ry, rx]
+    ~~~~~~~~^^^^^^^^^^^
+KeyboardInterrupt
+Traceback (most recent call last):
+Process ForkPoolWorker-5:
+Process ForkPoolWorker-12:
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/lib/python3.12/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/experiments/extended.py", line 556, in _run_single_experiment
+    return exp.run(seed=seed, verbose=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/experiments/extended.py", line 417, in run
+    treat_m = self.treatment_world.step()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/core/world.py", line 134, in step
+    obs = self.environment.get_local_observation(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/core/environment.py", line 355, in get_local_observation
+    elif patch[ry, rx] == CellType.OBSTACLE:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/lib/python3.12/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/experiments/extended.py", line 556, in _run_single_experiment
+    return exp.run(seed=seed, verbose=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/experiments/extended.py", line 416, in run
+    ctrl_m = self.control_world.step()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/core/world.py", line 134, in step
+    obs = self.environment.get_local_observation(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/core/environment.py", line 370, in get_local_observation
+    if (ax, ay) != (x, y) and abs(ax - x) <= r and abs(ay - y) <= r:
+                              ^^^^^^^^^^^
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/lib/python3.12/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/experiments/extended.py", line 556, in _run_single_experiment
+    return exp.run(seed=seed, verbose=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/experiments/extended.py", line 417, in run
+    treat_m = self.treatment_world.step()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/core/world.py", line 134, in step
+    obs = self.environment.get_local_observation(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/core/environment.py", line 355, in get_local_observation
+    elif patch[ry, rx] == CellType.OBSTACLE:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/lib/python3.12/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/experiments/extended.py", line 556, in _run_single_experiment
+    return exp.run(seed=seed, verbose=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/experiments/extended.py", line 417, in run
+    treat_m = self.treatment_world.step()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/core/world.py", line 193, in step
+    metrics.update({
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/lib/python3.12/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/experiments/extended.py", line 556, in _run_single_experiment
+    return exp.run(seed=seed, verbose=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/experiments/extended.py", line 417, in run
+    treat_m = self.treatment_world.step()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/core/world.py", line 134, in step
+    obs = self.environment.get_local_observation(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/core/environment.py", line 355, in get_local_observation
+    elif patch[ry, rx] == CellType.OBSTACLE:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/lib/python3.12/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/experiments/extended.py", line 556, in _run_single_experiment
+    return exp.run(seed=seed, verbose=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/experiments/extended.py", line 417, in run
+    treat_m = self.treatment_world.step()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/core/world.py", line 134, in step
+    obs = self.environment.get_local_observation(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/core/environment.py", line 355, in get_local_observation
+    elif patch[ry, rx] == CellType.OBSTACLE:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/lib/python3.12/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/experiments/extended.py", line 556, in _run_single_experiment
+    return exp.run(seed=seed, verbose=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/experiments/extended.py", line 417, in run
+    treat_m = self.treatment_world.step()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/core/world.py", line 142, in step
+    action = agent.decide()
+             ^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/agents/agent.py", line 310, in decide
+    action_idx = self.policy.select_action(self.inner_state, obs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/agents/policy.py", line 316, in select_action
+    action = int(np.argmax(q_values))
+                 ^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/venv/lib/python3.12/site-packages/numpy/_core/fromnumeric.py", line 1314, in argmax
+    return _wrapfunc(a, 'argmax', axis=axis, out=out, **kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/venv/lib/python3.12/site-packages/numpy/_core/fromnumeric.py", line 54, in _wrapfunc
+    return bound(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/lib/python3.12/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/experiments/extended.py", line 556, in _run_single_experiment
+    return exp.run(seed=seed, verbose=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/experiments/extended.py", line 417, in run
+    treat_m = self.treatment_world.step()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/core/world.py", line 134, in step
+    obs = self.environment.get_local_observation(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/core/environment.py", line 355, in get_local_observation
+    elif patch[ry, rx] == CellType.OBSTACLE:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/lib/python3.12/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/experiments/extended.py", line 556, in _run_single_experiment
+    return exp.run(seed=seed, verbose=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/experiments/extended.py", line 417, in run
+    treat_m = self.treatment_world.step()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/core/world.py", line 134, in step
+    obs = self.environment.get_local_observation(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/core/environment.py", line 355, in get_local_observation
+    elif patch[ry, rx] == CellType.OBSTACLE:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/pool.py", line 856, in next
+    item = self._items.popleft()
+           ^^^^^^^^^^^^^^^^^^^^^
+IndexError: pop from an empty deque
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/yousef/swarm-isolation-sim/scripts/run_simulation.py", line 512, in <module>
+    main()
+  File "/home/yousef/swarm-isolation-sim/scripts/run_simulation.py", line 140, in main
+    sweep_results = runner.run(verbose=True, workers=workers)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/experiments/extended.py", line 615, in run
+    return self._run_parallel(verbose=verbose, workers=workers)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/experiments/extended.py", line 704, in _run_parallel
+    for result in pool.imap_unordered(_run_single_experiment, jobs):
+  File "/usr/lib/python3.12/multiprocessing/pool.py", line 861, in next
+    self._cond.wait(timeout)
+  File "/usr/lib/python3.12/threading.py", line 355, in wait
+    waiter.acquire()
+KeyboardInterrupt

@@ -1,0 +1,5 @@
+condition,ctrl_mean,ctrl_std,treat_mean,treat_std,difference,t_statistic,p_value,cohens_d,effect_size,significant_005
+ratio_10pct,0.272708,0.16582,0.333496,0.203136,0.060788,-1.2697,0.209457,-0.3278,small,False
+ratio_20pct,0.258867,0.178509,0.411714,0.176209,0.152847,-3.3376,0.00148,-0.8618,large,True
+ratio_30pct,0.258867,0.178509,0.53134,0.138019,0.272473,-6.614,0.0,-1.7077,large,True
+ratio_5pct,0.263849,0.176961,0.275505,0.163604,0.011656,-0.2649,0.792016,-0.0684,negligible,False

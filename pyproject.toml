@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "swarm-isolation-sim"
+version = "0.1.0"
+description = "Agent-based simulation of isolation's impact on heterogeneous swarm dynamics"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.8"
+authors = [
+    {name = "Your Name", email = "you@example.com"},
+]
+keywords = ["swarm", "simulation", "genetic-algorithm", "multi-agent", "reinforcement-learning"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "numpy>=1.24.0",
+    "scipy>=1.10.0",
+    "pandas>=2.0.0",
+    "PyYAML>=6.0",
+    "matplotlib>=3.7.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "flake8>=6.0.0",
+    "black>=23.0.0",
+]
+full = [
+    "torch>=2.0.0",
+    "pgmpy>=0.0.21",
+    "stable-baselines3>=2.0.0",
+    "deap>=1.4.0",
+]
+
+[project.scripts]
+swarm-sim = "scripts.run_simulation:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-v --tb=short"
+
+[tool.black]
+line-length = 100
+target-version = ["py38"]
+
+[tool.setuptools.packages.find]
+include = ["swarm_sim*"]

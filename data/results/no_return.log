@@ -1,0 +1,39 @@
+[*] Using default configuration
+[*] Sweep mode: no_return (2 conditions × 30 seeds = 60 runs)
+[*] Parallel mode: 12 workers
+
+[*] Parallel execution: 12 workers, 60 jobs
+[*] Conditions: 2, Seeds: 30
+Process ForkPoolWorker-2:
+Process ForkPoolWorker-12:
+Process ForkPoolWorker-8:
+Process ForkPoolWorker-6:
+Process ForkPoolWorker-7:
+Process ForkPoolWorker-1:
+Traceback (most recent call last):
+Process ForkPoolWorker-9:
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/pool.py", line 856, in next
+    item = self._items.popleft()
+           ^^^^^^^^^^^^^^^^^^^^^
+IndexError: pop from an empty deque
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/yousef/swarm-isolation-sim/scripts/run_simulation.py", line 512, in <module>
+    main()
+  File "/home/yousef/swarm-isolation-sim/scripts/run_simulation.py", line 140, in main
+    sweep_results = runner.run(verbose=True, workers=workers)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/experiments/extended.py", line 615, in run
+    return self._run_parallel(verbose=verbose, workers=workers)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yousef/swarm-isolation-sim/swarm_sim/experiments/extended.py", line 704, in _run_parallel
+    for result in pool.imap_unordered(_run_single_experiment, jobs):
+  File "/usr/lib/python3.12/multiprocessing/pool.py", line 861, in next
+    self._cond.wait(timeout)
+  File "/usr/lib/python3.12/threading.py", line 355, in wait
+    waiter.acquire()
+KeyboardInterrupt

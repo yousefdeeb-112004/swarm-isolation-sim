@@ -1,0 +1,5 @@
+condition_name,experiment_type,n_seeds,ctrl_fitness_mean,ctrl_fitness_std,treat_fitness_mean,treat_fitness_std,fitness_impact_mean,fitness_impact_std,fitness_impact_ci95,food_reduction_mean,food_reduction_std,extinction_rate,extinction_step_mean,extinction_step_std
+ratio_10pct,ratio_sweep,5,0.4327,0.1216,0.3146,0.2314,-0.1181,0.2551,0.2236,-4.5958,85.0593,0.8,2136.25,1542.4734
+ratio_20pct,ratio_sweep,5,0.4327,0.1216,0.4202,0.1968,-0.0125,0.2038,0.1786,-26.7979,53.1694,0.8,3189.0,929.8878
+ratio_30pct,ratio_sweep,5,0.4327,0.1216,0.5435,0.1246,0.1108,0.2043,0.1791,-255.5949,170.4887,0.6,3508.6667,1599.6063
+ratio_5pct,ratio_sweep,5,0.4327,0.1216,0.2652,0.097,-0.1675,0.1691,0.1483,40.3979,23.8363,1.0,2307.2,1057.8099

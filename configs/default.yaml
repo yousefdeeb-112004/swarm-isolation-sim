@@ -1,0 +1,57 @@
+# =============================================================================
+# Swarm Isolation Simulator — Default Configuration
+# =============================================================================
+
+world:
+  width: 100                    # Grid width
+  height: 100                   # Grid height
+  max_steps: 1000               # Max time steps per generation
+  seed: 42                      # Random seed (null for random)
+
+environment:
+  food:
+    initial_count: 150          # Number of food sources at start
+    energy_value: 20            # Energy gained from eating food
+    regeneration_rate: 0.02     # Probability of food spawning per empty cell per step
+    max_food: 200               # Cap on total food in the world
+    cluster_probability: 0.6    # Probability food spawns near existing food
+    cluster_radius: 5           # Radius for clustered food spawning
+
+  obstacles:
+    count: 30                   # Number of static obstacles
+    # Obstacles block movement; agents cannot pass through
+
+  predators:
+    count: 5                    # Number of predators
+    energy_damage: 30           # Energy lost when caught by predator
+    speed: 1                    # Predator movement speed (cells per step)
+    detection_range: 8          # How far predators can detect agents
+    patrol_radius: 15           # How far predators roam from spawn
+
+agents:
+  population_size: 50           # Initial number of agents
+  sensor_range: 7               # How far agents can observe (radius)
+  initial_energy: 100           # Starting energy for each agent
+  energy_per_step: -1           # Energy cost per time step (metabolism)
+  max_energy: 200               # Energy cap
+
+evolution:
+  mutation_rate: 0.05           # Probability of mutating each gene
+  mutation_strength: 0.1        # Magnitude of mutation perturbation
+  crossover_rate: 0.7           # Probability of crossover during reproduction
+  selection_method: "tournament" # "tournament" or "roulette"
+  tournament_size: 3            # For tournament selection
+  elitism_count: 2              # Number of top agents preserved unchanged
+
+experiment:
+  isolation_duration: 50        # Steps the isolated agent spends alone
+  isolation_distance: 80        # How far from swarm center to teleport
+  num_generations: 50           # Total generations to simulate
+  isolation_frequency: 50       # Isolate agents every N steps within a generation
+  selection_criteria: "adventurousness"  # "random", "adventurousness", "manual"
+
+logging:
+  log_interval: 10              # Log metrics every N steps
+  export_format: "csv"          # "csv" or "json"
+  output_dir: "data/exports"
+  verbose: true

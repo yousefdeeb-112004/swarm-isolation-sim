@@ -1,0 +1,24 @@
+# Core
+numpy>=1.24.0
+scipy>=1.10.0
+pandas>=2.0.0
+PyYAML>=6.0
+
+# Neural Networks (Section 4)
+# torch>=2.0.0
+
+# Bayesian Networks (Section 3)
+# pgmpy>=0.0.21
+
+# Reinforcement Learning (Section 5)
+# stable-baselines3>=2.0.0
+
+# Genetic Algorithm (Section 7)
+# deap>=1.4.0
+
+# Visualization (Section 10)
+matplotlib>=3.7.0
+
+# Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
