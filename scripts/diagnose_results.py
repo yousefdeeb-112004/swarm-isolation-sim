@@ -44,6 +44,26 @@ from swarm_sim.experiments.extended import (
 )
 
 # ======================================================================
+# Config source (default: built-in dataclass defaults; --config overrides)
+# ======================================================================
+
+_CONFIG_PATH = None   # set from CLI in __main__; None => SimulationConfig.default()
+
+
+def get_config() -> SimulationConfig:
+    """Return the config under test.
+
+    Defaults to the built-in dataclass defaults (original behaviour). When a
+    --config path is supplied on the command line, the diagnostic runs against
+    that YAML instead, so the calibrated configuration can be validated
+    directly (Phase 1, Step A acceptance).
+    """
+    if _CONFIG_PATH is None:
+        return SimulationConfig.default()
+    return SimulationConfig.from_yaml(_CONFIG_PATH)
+
+
+# ======================================================================
 # Formatting
 # ======================================================================
 
@@ -90,7 +110,7 @@ def record(level, msg):
 def test_1_initial_conditions():
     header("TEST 1: Do control & treatment start from identical seeds?")
 
-    cfg = SimulationConfig.default()
+    cfg = get_config()
     cfg.world.seed = 42
 
     Agent.reset_id_counter()
@@ -203,7 +223,7 @@ def test_2_parameter_audit():
 def test_3_energy_budget():
     header("TEST 3: Energy budget during isolation")
 
-    cfg = SimulationConfig.default()
+    cfg = get_config()
 
     initial_energy = cfg.agents.initial_energy      # 100
     metabolism = cfg.agents.energy_per_step          # -1 per step
@@ -248,7 +268,7 @@ def test_3_energy_budget():
 def test_4_isolation_load():
     header("TEST 4: What % of treatment is isolated at each timestep?")
 
-    cfg = SimulationConfig.default()
+    cfg = get_config()
     cfg.world.seed = 42
     cond = ExperimentCondition(
         name="diag_ratio_20pct",
@@ -329,7 +349,7 @@ def test_4_isolation_load():
 def test_5_null_isolation():
     header("TEST 5: Does 0% isolation match control? (null test)")
 
-    cfg = SimulationConfig.default()
+    cfg = get_config()
     cfg.world.seed = 100
 
     cond = ExperimentCondition(
@@ -374,7 +394,7 @@ def test_5_null_isolation():
 def test_6_minimal_dose():
     header("TEST 6: What happens with very infrequent isolation?")
 
-    cfg = SimulationConfig.default()
+    cfg = get_config()
     cond = ExperimentCondition(
         name="minimal_dose",
         experiment_type="diagnostic",
@@ -413,7 +433,7 @@ def test_6_minimal_dose():
 def test_7_position_pileup():
     header("TEST 7: Isolation zone position analysis")
 
-    cfg = SimulationConfig.default()
+    cfg = get_config()
     cond = ExperimentCondition(
         name="pileup_test",
         experiment_type="diagnostic",
@@ -475,7 +495,7 @@ def test_7_position_pileup():
 def test_8_control_health():
     header("TEST 8: Does control population stay healthy?")
 
-    cfg = SimulationConfig.default()
+    cfg = get_config()
     cfg.world.seed = 42
     Agent.reset_id_counter()
     w = World(cfg)
@@ -508,7 +528,7 @@ def test_8_control_health():
 def test_9_death_timeline():
     header("TEST 9: Step-by-step death timeline for treatment")
 
-    cfg = SimulationConfig.default()
+    cfg = get_config()
     cfg.world.seed = 42
     cond = ExperimentCondition(
         name="timeline_trace",
@@ -622,9 +642,24 @@ def print_summary():
 # ======================================================================
 
 if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="Run the swarm-isolation results diagnostic (9 tests)."
+    )
+    parser.add_argument(
+        "--config", type=str, default=None,
+        help="Path to a YAML config to test (default: built-in dataclass "
+             "defaults, i.e. the original behaviour).",
+    )
+    args = parser.parse_args()
+    _CONFIG_PATH = args.config
+    cfg_label = args.config if args.config else "built-in defaults (SimulationConfig.default())"
+
     print(f"\n{BOLD}{'='*70}")
     print(f"  SWARM ISOLATION SIMULATION — RESULTS DIAGNOSTIC")
     print(f"  Investigating: Is 100% extinction a real finding or a bug?")
+    print(f"  Config under test: {cfg_label}")
     print(f"{'='*70}{RESET}\n")
 
     test_1_initial_conditions()

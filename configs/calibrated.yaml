@@ -1,0 +1,75 @@
+# =============================================================================
+# Swarm Isolation Simulator — CALIBRATED Configuration (Phase 1, Step A)
+# =============================================================================
+#
+# Purpose: a viable baseline in which the CONTROL population (no isolation)
+# does not go extinct at pathological rates.
+#
+# This file is identical to configs/default.yaml EXCEPT for ONE parameter:
+#
+#   environment.food.energy_value : 20  ->  40
+#
+# Rationale: with the default configuration the control population went extinct
+# in 96.7% of runs (29/30 seeds, 5 generations x 1000 steps) — the environment
+# was food-energy-limited, so agents starved despite aggregate food being
+# plentiful. Doubling the energy yielded per food item (20 -> 40) roughly halves
+# the number of successful feedings an agent needs per generation to break even
+# on metabolism, bringing control extinction into the target 20-50% band
+# (measured: 33% at 30 seeds; see step_a_calibration_report.md).
+#
+# No isolation-related parameters were changed during calibration.
+# =============================================================================
+
+world:
+  width: 100                    # Grid width
+  height: 100                   # Grid height
+  max_steps: 1000               # Max time steps per generation
+  seed: 42                      # Random seed (null for random)
+
+environment:
+  food:
+    initial_count: 150          # Number of food sources at start
+    energy_value: 40            # [CALIBRATED 20 -> 40] Energy gained from eating food
+    regeneration_rate: 0.02     # Probability of food spawning per empty cell per step
+    max_food: 200               # Cap on total food in the world
+    cluster_probability: 0.6    # Probability food spawns near existing food
+    cluster_radius: 5           # Radius for clustered food spawning
+
+  obstacles:
+    count: 30                   # Number of static obstacles
+    # Obstacles block movement; agents cannot pass through
+
+  predators:
+    count: 5                    # Number of predators
+    energy_damage: 30           # Energy lost when caught by predator
+    speed: 1                    # Predator movement speed (cells per step)
+    detection_range: 8          # How far predators can detect agents
+    patrol_radius: 15           # How far predators roam from spawn
+
+agents:
+  population_size: 50           # Initial number of agents
+  sensor_range: 7               # How far agents can observe (radius)
+  initial_energy: 100           # Starting energy for each agent
+  energy_per_step: -1           # Energy cost per time step (metabolism)
+  max_energy: 200               # Energy cap
+
+evolution:
+  mutation_rate: 0.05           # Probability of mutating each gene
+  mutation_strength: 0.1        # Magnitude of mutation perturbation
+  crossover_rate: 0.7           # Probability of crossover during reproduction
+  selection_method: "tournament" # "tournament" or "roulette"
+  tournament_size: 3            # For tournament selection
+  elitism_count: 2              # Number of top agents preserved unchanged
+
+experiment:
+  isolation_duration: 50        # Steps the isolated agent spends alone
+  isolation_distance: 80        # How far from swarm center to teleport
+  num_generations: 50           # Total generations to simulate
+  isolation_frequency: 50       # Isolate agents every N steps within a generation
+  selection_criteria: "adventurousness"  # "random", "adventurousness", "manual"
+
+logging:
+  log_interval: 10              # Log metrics every N steps
+  export_format: "csv"          # "csv" or "json"
+  output_dir: "data/exports"
+  verbose: true
