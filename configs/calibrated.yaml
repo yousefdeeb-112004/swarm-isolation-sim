@@ -7,15 +7,22 @@
 #
 # This file is identical to configs/default.yaml EXCEPT for ONE parameter:
 #
-#   environment.food.energy_value : 20  ->  40
+#   environment.food.energy_value : 20  ->  50
 #
 # Rationale: with the default configuration the control population went extinct
 # in 96.7% of runs (29/30 seeds, 5 generations x 1000 steps) — the environment
 # was food-energy-limited, so agents starved despite aggregate food being
-# plentiful. Doubling the energy yielded per food item (20 -> 40) roughly halves
-# the number of successful feedings an agent needs per generation to break even
-# on metabolism, bringing control extinction into the target 20-50% band
-# (measured: 33% at 30 seeds; see step_a_calibration_report.md).
+# plentiful (food regenerates to its cap; the bottleneck was energy per feeding).
+# Raising the energy yielded per food item (20 -> 50) reduces the number of
+# successful feedings an agent needs per generation to stay above the metabolic
+# break-even point, bringing control extinction into the target 20-50% band.
+#
+# Measured control extinction rate over 30 seeds (5 gen x 1000 steps):
+#   energy_value=20 : 96.7% (29/30)   [default, non-viable]
+#   energy_value=40 : 56.7% (17/30)   [still above the band]
+#   energy_value=50 : 33.3% (10/30)   [CALIBRATED — in band, near ~32% center]
+#   energy_value=55 : 30.0% ( 9/30)   [also in band, slightly further from center]
+# See data/results/phase1/step_a_calibration_report.md for full details.
 #
 # No isolation-related parameters were changed during calibration.
 # =============================================================================
@@ -29,7 +36,7 @@ world:
 environment:
   food:
     initial_count: 150          # Number of food sources at start
-    energy_value: 40            # [CALIBRATED 20 -> 40] Energy gained from eating food
+    energy_value: 50            # [CALIBRATED 20 -> 50] Energy gained from eating food
     regeneration_rate: 0.02     # Probability of food spawning per empty cell per step
     max_food: 200               # Cap on total food in the world
     cluster_probability: 0.6    # Probability food spawns near existing food
@@ -67,6 +74,12 @@ experiment:
   num_generations: 50           # Total generations to simulate
   isolation_frequency: 50       # Isolate agents every N steps within a generation
   selection_criteria: "adventurousness"  # "random", "adventurousness", "manual"
+
+  # --- Isolation protective mechanisms (Phase 1, Step B; configurable) ---
+  # Defaults below reproduce the legacy "bug-fix" behaviour exactly.
+  isolation_metabolism_discount: 0.5   # fraction of metabolism waived while isolated
+                                        #  (0.0=full cost, 0.5=legacy, 1.0=no cost)
+  isolation_predator_protection: true  # true=isolated agents immune to predators (legacy)
 
 logging:
   log_interval: 10              # Log metrics every N steps

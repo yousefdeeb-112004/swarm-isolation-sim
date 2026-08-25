@@ -54,6 +54,12 @@ class ExperimentCondition:
     isolation_frequency: int = 50
     no_return: bool = False           # If True, isolated agents never return
 
+    # Protective-mechanism parameters (Phase 1, Step B).
+    # None => inherit whatever the base config specifies (default 0.5 / True,
+    # i.e. legacy behaviour). Set explicitly by the mechanism_sweep factorial.
+    isolation_metabolism_discount: Optional[float] = None
+    isolation_predator_protection: Optional[bool] = None
+
     # Simulation parameters
     num_generations: int = 5
     steps_per_generation: int = 1000
@@ -77,6 +83,12 @@ class ExperimentCondition:
         if self.food_max is not None:
             cfg.environment.food.max_food = self.food_max
 
+        # Protective-mechanism overrides (None => keep base config value).
+        if self.isolation_metabolism_discount is not None:
+            cfg.experiment.isolation_metabolism_discount = self.isolation_metabolism_discount
+        if self.isolation_predator_protection is not None:
+            cfg.experiment.isolation_predator_protection = self.isolation_predator_protection
+
         return cfg
 
     def to_dict(self) -> Dict[str, Any]:
@@ -93,6 +105,8 @@ class ExperimentCondition:
             "steps_per_generation": self.steps_per_generation,
             "food_initial": self.food_initial,
             "food_max": self.food_max,
+            "isolation_metabolism_discount": self.isolation_metabolism_discount,
+            "isolation_predator_protection": self.isolation_predator_protection,
         }
 
     def __repr__(self) -> str:
@@ -236,6 +250,33 @@ def build_experiment_suite(
             num_generations=num_generations,
         )
         for length in [250, 500, 1000, 2000]
+    ]
+
+    # --- Experiment 7: Mechanism Factorial (Phase 1, Step B) ---
+    # 2x4 factorial over the two protective mechanisms, crossed with a sweep of
+    # the isolation ratio. Each (metabolism_discount x predator_protection) cell
+    # is one point in "mechanism space"; within a cell the isolation ratio is
+    # swept over {5%, 10%, 20%, 30%}. The no-isolation control is captured for
+    # free by the control world inside every ExtendedExperiment run (it is
+    # identical across all cells for a given seed), so no explicit control
+    # condition is added. Total: 4 x 2 x 4 = 32 treatment conditions.
+    suite["mechanism_sweep"] = [
+        ExperimentCondition(
+            name=(f"mech_md{int(md*100):02d}"
+                  f"_pp{'on' if pp else 'off'}"
+                  f"_r{int(frac*100):02d}"),
+            experiment_type="mechanism_sweep",
+            description=(f"metab_discount={md}, predator_protection={pp}, "
+                         f"isolation_ratio={int(frac*100)}%"),
+            isolation_fraction=frac,
+            isolation_metabolism_discount=md,
+            isolation_predator_protection=pp,
+            num_generations=num_generations,
+            steps_per_generation=steps_per_generation,
+        )
+        for md in [0.0, 0.25, 0.5, 0.75]
+        for pp in [True, False]
+        for frac in [0.05, 0.10, 0.20, 0.30]
     ]
 
     return suite

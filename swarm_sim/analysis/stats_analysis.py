@@ -186,6 +186,132 @@ def one_way_anova(
 
 
 # ======================================================================
+# 3b. Two-way ANOVA (balanced, with interaction)
+# ======================================================================
+
+def two_way_anova(
+    cells: Dict[Tuple[Any, Any], List[float]],
+    factor_a_name: str = "A",
+    factor_b_name: str = "B",
+) -> Dict[str, Any]:
+    """
+    Balanced two-way ANOVA with interaction.
+
+    Parameters
+    ----------
+    cells : dict mapping (a_level, b_level) -> list of observations.
+            The design must be complete (every a_level x b_level present) and
+            balanced (equal n per cell) for the classical SS decomposition to be
+            exact. If cell sizes differ, the smallest common n is used and a
+            warning flag is set (results become approximate).
+    factor_a_name, factor_b_name : labels for reporting.
+
+    Returns a dict with SS/df/MS/F/p for factor A, factor B, the A×B
+    interaction, and the within-cell error, plus factor level means.
+    """
+    a_levels = sorted({k[0] for k in cells})
+    b_levels = sorted({k[1] for k in cells})
+    a, b = len(a_levels), len(b_levels)
+
+    # Completeness check
+    complete = all((ai, bj) in cells and len(cells[(ai, bj)]) > 0
+                   for ai in a_levels for bj in b_levels)
+    if not complete or a < 2 or b < 2:
+        return {"error": "incomplete or degenerate design",
+                "a_levels": a_levels, "b_levels": b_levels}
+
+    sizes = [len(cells[(ai, bj)]) for ai in a_levels for bj in b_levels]
+    balanced = len(set(sizes)) == 1
+    n = min(sizes)  # replicates per cell used in the decomposition
+
+    # Truncate each cell to n (only matters if unbalanced) for a balanced SS.
+    cell_arr = {k: np.asarray(v[:n], dtype=float) for k, v in cells.items()}
+
+    all_vals = np.concatenate([cell_arr[(ai, bj)]
+                               for ai in a_levels for bj in b_levels])
+    grand = float(all_vals.mean())
+    N = all_vals.size
+
+    cell_means = {k: float(v.mean()) for k, v in cell_arr.items()}
+    a_means = {ai: float(np.mean([cell_means[(ai, bj)] for bj in b_levels]))
+               for ai in a_levels}
+    b_means = {bj: float(np.mean([cell_means[(ai, bj)] for ai in a_levels]))
+               for bj in b_levels}
+
+    # Sums of squares (balanced formulas)
+    ss_a = n * b * sum((a_means[ai] - grand) ** 2 for ai in a_levels)
+    ss_b = n * a * sum((b_means[bj] - grand) ** 2 for bj in b_levels)
+    ss_ab = n * sum(
+        (cell_means[(ai, bj)] - a_means[ai] - b_means[bj] + grand) ** 2
+        for ai in a_levels for bj in b_levels
+    )
+    ss_within = float(sum(
+        float(((cell_arr[(ai, bj)] - cell_means[(ai, bj)]) ** 2).sum())
+        for ai in a_levels for bj in b_levels
+    ))
+    ss_total = float(((all_vals - grand) ** 2).sum())
+
+    df_a, df_b = a - 1, b - 1
+    df_ab = (a - 1) * (b - 1)
+    df_within = a * b * (n - 1)
+
+    def _f_p(ss, df):
+        if df_within <= 0 or df <= 0:
+            return 0.0, 0.0, 1.0
+        ms = ss / df
+        ms_err = ss_within / df_within
+        if ms_err <= 0:
+            return ms, float("inf"), 0.0
+        f = ms / ms_err
+        p = float(1.0 - sp_stats.f.cdf(f, df, df_within))
+        return ms, float(f), p
+
+    ms_a, f_a, p_a = _f_p(ss_a, df_a)
+    ms_b, f_b, p_b = _f_p(ss_b, df_b)
+    ms_ab, f_ab, p_ab = _f_p(ss_ab, df_ab)
+    ms_err = ss_within / df_within if df_within > 0 else 0.0
+
+    # partial eta^2 for effect sizes
+    def _eta2(ss):
+        denom = ss + ss_within
+        return float(ss / denom) if denom > 0 else 0.0
+
+    return {
+        "factor_a": factor_a_name,
+        "factor_b": factor_b_name,
+        "a_levels": a_levels,
+        "b_levels": b_levels,
+        "n_per_cell": n,
+        "balanced": balanced,
+        "grand_mean": round(grand, 6),
+        "a_level_means": {str(k): round(v, 6) for k, v in a_means.items()},
+        "b_level_means": {str(k): round(v, 6) for k, v in b_means.items()},
+        "cell_means": {f"{ai}|{bj}": round(cell_means[(ai, bj)], 6)
+                       for ai in a_levels for bj in b_levels},
+        "effects": {
+            factor_a_name: {"SS": round(ss_a, 6), "df": df_a,
+                            "MS": round(ms_a, 6), "F": round(f_a, 4),
+                            "p_value": round(p_a, 6),
+                            "partial_eta2": round(_eta2(ss_a), 4),
+                            "significant_005": p_a < 0.05},
+            factor_b_name: {"SS": round(ss_b, 6), "df": df_b,
+                            "MS": round(ms_b, 6), "F": round(f_b, 4),
+                            "p_value": round(p_b, 6),
+                            "partial_eta2": round(_eta2(ss_b), 4),
+                            "significant_005": p_b < 0.05},
+            f"{factor_a_name}:{factor_b_name}": {
+                "SS": round(ss_ab, 6), "df": df_ab, "MS": round(ms_ab, 6),
+                "F": round(f_ab, 4), "p_value": round(p_ab, 6),
+                "partial_eta2": round(_eta2(ss_ab), 4),
+                "significant_005": p_ab < 0.05},
+            "Residual": {"SS": round(ss_within, 6), "df": df_within,
+                         "MS": round(ms_err, 6)},
+        },
+        "ss_total": round(ss_total, 6),
+    }
+
+
+# ======================================================================
 # 4. Kaplan–Meier Survival Analysis
 # ======================================================================
 
@@ -564,4 +690,223 @@ def _export_stats_latex(analysis: Dict[str, Any], output_dir: str) -> str:
     with open(path, "w") as f:
         f.write("\n".join(lines))
 
+    return path
+
+
+# ======================================================================
+# 7. Mechanism Factorial Analysis (Phase 1, Step B)
+# ======================================================================
+
+def analyze_mechanism_sweep(
+    sweep_results: Dict[str, Any],
+    output_dir: Optional[str] = None,
+    focus_ratio: float = 0.30,
+) -> Dict[str, Any]:
+    """
+    Analyse a `mechanism_sweep` factorial (metabolism_discount x
+    predator_protection x isolation_ratio).
+
+    Produces, per (discount, protection, ratio) cell:
+      - fitness impact vs control (mean, 95% CI)
+      - extinction rate
+      - Cohen's d (treatment vs control fitness; +ve = treatment higher)
+      - Kaplan-Meier median survival (treatment)
+      - t-test p-value (treatment vs control)
+
+    Plus two-way ANOVA of fitness impact (discount x protection):
+      - at `focus_ratio` (default 30%)
+      - pooled across all ratios
+
+    Parameters mirror analyze_sweep. Exports CSV + LaTeX if output_dir given.
+    """
+    all_results = sweep_results.get("all_results", [])
+
+    # Group by (discount, protection, ratio)
+    by_cell_ratio: Dict[Tuple[float, bool, float], List[Dict]] = {}
+    for r in all_results:
+        cond = r["condition"]
+        md = cond.get("isolation_metabolism_discount")
+        pp = cond.get("isolation_predator_protection")
+        fr = cond.get("isolation_fraction")
+        if md is None or pp is None:
+            continue  # not a mechanism-sweep row
+        by_cell_ratio.setdefault((md, pp, fr), []).append(r)
+
+    discounts = sorted({k[0] for k in by_cell_ratio})
+    protections = sorted({k[1] for k in by_cell_ratio})
+    ratios = sorted({k[2] for k in by_cell_ratio})
+
+    per_cell_ratio: Dict[str, Any] = {}
+    for (md, pp, fr), rows in by_cell_ratio.items():
+        ctrl_fits = [x["ctrl_avg_fitness"] for x in rows]
+        treat_fits = [x["treat_avg_fitness"] for x in rows]
+        impacts = [x["fitness_impact"] for x in rows]
+        n = len(rows)
+        ext_rate = sum(1 for x in rows if x["treat_extinct"]) / max(n, 1)
+        ext_steps = [x["treat_extinction_step"] for x in rows]
+        cond0 = rows[0]["condition"]
+        total_steps = cond0["num_generations"] * cond0["steps_per_generation"]
+        km = kaplan_meier(ext_steps, total_steps, label="t")
+        comp = paired_comparison(ctrl_fits, treat_fits)
+        # d as treatment - control (sign flip of paired_comparison's ctrl-vs-treat)
+        d_treat_vs_ctrl = cohens_d(treat_fits, ctrl_fits)
+        key = f"md{int(md*100):02d}_pp{'on' if pp else 'off'}_r{int(fr*100):02d}"
+        per_cell_ratio[key] = {
+            "metabolism_discount": md,
+            "predator_protection": pp,
+            "isolation_ratio": fr,
+            "n_seeds": n,
+            "impact_desc": descriptive_stats(impacts),
+            "extinction_rate": round(ext_rate, 4),
+            "cohens_d_treat_vs_ctrl": round(d_treat_vs_ctrl, 4),
+            "km_median_survival": km["median_survival"],
+            "ttest_p": comp["p_value"],
+            "significant_005": comp["significant_005"],
+            "significant_001": comp["significant_001"],
+            "ctrl_fitness_mean": round(_safe_np_mean(ctrl_fits), 6),
+            "treat_fitness_mean": round(_safe_np_mean(treat_fits), 6),
+        }
+
+    # Two-way ANOVA at focus ratio
+    cells_focus = {
+        (md, pp): [x["fitness_impact"]
+                   for x in by_cell_ratio.get((md, pp, focus_ratio), [])]
+        for md in discounts for pp in protections
+    }
+    anova_focus = two_way_anova(
+        cells_focus, "metabolism_discount", "predator_protection")
+
+    # Two-way ANOVA pooled across ratios
+    cells_pooled: Dict[Tuple[float, bool], List[float]] = {}
+    for (md, pp, fr), rows in by_cell_ratio.items():
+        cells_pooled.setdefault((md, pp), []).extend(
+            x["fitness_impact"] for x in rows)
+    anova_pooled = two_way_anova(
+        cells_pooled, "metabolism_discount", "predator_protection")
+
+    # Per-cell paradox classification (at focus ratio and pooled across ratios).
+    #   holds    : mean impact > 0 and significant (treatment beats control)
+    #   reverses : mean impact < 0 and significant (isolation now harmful)
+    #   neutral  : not significant at p<0.05
+    def _classify(mean, p):
+        if p >= 0.05:
+            return "neutral"
+        return "holds" if mean > 0 else "reverses"
+
+    paradox_by_cell = {}
+    for md in discounts:
+        for pp in protections:
+            key = f"md{int(md*100):02d}_pp{'on' if pp else 'off'}"
+            focus = per_cell_ratio.get(f"{key}_r{int(focus_ratio*100):02d}")
+            pooled_vals = cells_pooled.get((md, pp), [])
+            pooled_desc = descriptive_stats(pooled_vals)
+            # pooled significance: one-sample-style via CI excluding 0
+            pooled_p = None
+            if len(pooled_vals) >= 2:
+                t, pooled_p = sp_stats.ttest_1samp(pooled_vals, 0.0)
+                pooled_p = float(pooled_p)
+            paradox_by_cell[key] = {
+                "metabolism_discount": md,
+                "predator_protection": pp,
+                "focus_impact_mean": focus["impact_desc"]["mean"] if focus else None,
+                "focus_ttest_p": focus["ttest_p"] if focus else None,
+                "focus_label": (_classify(focus["impact_desc"]["mean"],
+                                          focus["ttest_p"]) if focus else None),
+                "pooled_impact_mean": pooled_desc["mean"],
+                "pooled_p_vs_zero": (round(pooled_p, 6)
+                                     if pooled_p is not None else None),
+                "pooled_label": (_classify(pooled_desc["mean"], pooled_p)
+                                 if pooled_p is not None else "neutral"),
+            }
+
+    analysis = {
+        "discounts": discounts,
+        "protections": protections,
+        "ratios": ratios,
+        "focus_ratio": focus_ratio,
+        "per_cell_ratio": per_cell_ratio,
+        "anova_focus_ratio": anova_focus,
+        "anova_pooled": anova_pooled,
+        "paradox_by_cell": paradox_by_cell,
+    }
+
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
+        _export_mechanism_csv(analysis, output_dir)
+        _export_two_way_latex(anova_focus, output_dir,
+                              "anova_two_way_r30.tex",
+                              caption=f"Two-way ANOVA of fitness impact at "
+                                      f"{int(focus_ratio*100)}\\% isolation")
+        _export_two_way_latex(anova_pooled, output_dir,
+                              "anova_two_way_pooled.tex",
+                              caption="Two-way ANOVA of fitness impact "
+                                      "(pooled across isolation ratios)")
+
+    return analysis
+
+
+def _safe_np_mean(vals):
+    return float(np.mean(vals)) if len(vals) else 0.0
+
+
+def _export_mechanism_csv(analysis: Dict[str, Any], output_dir: str) -> str:
+    """Per-cell x ratio table for the mechanism factorial."""
+    path = os.path.join(output_dir, "mechanism_cells.csv")
+    fieldnames = [
+        "metabolism_discount", "predator_protection", "isolation_ratio",
+        "n_seeds", "fitness_impact_mean", "fitness_impact_ci95",
+        "extinction_rate", "cohens_d_treat_vs_ctrl", "km_median_survival",
+        "ttest_p", "significant_005",
+        "ctrl_fitness_mean", "treat_fitness_mean",
+    ]
+    rows = sorted(
+        analysis["per_cell_ratio"].values(),
+        key=lambda r: (r["metabolism_discount"],
+                       not r["predator_protection"],
+                       r["isolation_ratio"]),
+    )
+    with open(path, "w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writeheader()
+        for r in rows:
+            writer.writerow({
+                "metabolism_discount": r["metabolism_discount"],
+                "predator_protection": r["predator_protection"],
+                "isolation_ratio": r["isolation_ratio"],
+                "n_seeds": r["n_seeds"],
+                "fitness_impact_mean": r["impact_desc"]["mean"],
+                "fitness_impact_ci95": r["impact_desc"]["ci95"],
+                "extinction_rate": r["extinction_rate"],
+                "cohens_d_treat_vs_ctrl": r["cohens_d_treat_vs_ctrl"],
+                "km_median_survival": r["km_median_survival"],
+                "ttest_p": r["ttest_p"],
+                "significant_005": r["significant_005"],
+                "ctrl_fitness_mean": r["ctrl_fitness_mean"],
+                "treat_fitness_mean": r["treat_fitness_mean"],
+            })
+    return path
+
+
+def _export_two_way_latex(anova: Dict[str, Any], output_dir: str,
+                          filename: str, caption: str) -> str:
+    """Export a two-way ANOVA table as LaTeX."""
+    path = os.path.join(output_dir, filename)
+    lines = [r"\begin{table}[htbp]", r"\centering",
+             f"\\caption{{{caption}}}",
+             r"\begin{tabular}{lrrrrr}", r"\toprule",
+             r"Source & SS & df & MS & $F$ & $p$ \\", r"\midrule"]
+    if "effects" in anova:
+        for src, e in anova["effects"].items():
+            src_tex = src.replace("_", r"\_")
+            if "F" in e:
+                lines.append(
+                    f"  {src_tex} & {e['SS']:.4f} & {e['df']} & {e['MS']:.4f} "
+                    f"& {e['F']:.3f} & {e['p_value']:.4f} \\\\")
+            else:  # Residual
+                lines.append(
+                    f"  {src_tex} & {e['SS']:.4f} & {e['df']} & {e['MS']:.4f} "
+                    f"& & \\\\")
+    lines += [r"\bottomrule", r"\end{tabular}", r"\end{table}"]
+    with open(path, "w") as f:
+        f.write("\n".join(lines))
     return path

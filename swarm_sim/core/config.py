@@ -82,6 +82,17 @@ class ExperimentConfig:
     isolation_frequency: int = 5
     selection_criteria: str = "adventurousness"
 
+    # --- Isolation protective mechanisms (Phase 1, Step B) ---
+    # Fraction of metabolism cost waived while an agent is isolated.
+    #   0.0 = isolated agents pay the FULL metabolism cost
+    #   0.5 = current/legacy behaviour (half metabolism cost)
+    #   1.0 = isolated agents pay no metabolism cost
+    isolation_metabolism_discount: float = 0.5
+    # Whether isolated agents are immune to predator collisions.
+    #   True  = current/legacy behaviour (isolated agents skip predator damage)
+    #   False = isolated agents are subject to predators like everyone else
+    isolation_predator_protection: bool = True
+
 
 @dataclass
 class LoggingConfig:

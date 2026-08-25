@@ -1,0 +1,263 @@
+{
+  "label": "calib_genlen300",
+  "config_source": "configs/calibrated.yaml",
+  "n_seeds": 15,
+  "num_generations": 5,
+  "steps_per_generation": 300,
+  "seeds": [
+    1000,
+    1137,
+    1274,
+    1411,
+    1548,
+    1685,
+    1822,
+    1959,
+    2096,
+    2233,
+    2370,
+    2507,
+    2644,
+    2781,
+    2918
+  ],
+  "extinction_rate": 0.0,
+  "n_extinct": 0,
+  "extinction_steps": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "km_median_survival": null,
+  "km_n_events": 0,
+  "km_n_censored": 15,
+  "mean_fitness_mean": 0.351057,
+  "mean_fitness_std": 0.03372,
+  "final_gen_fitness_mean": 0.400093,
+  "final_gen_fitness_std": 0.055321,
+  "per_seed": [
+    {
+      "seed": 1000,
+      "extinct": false,
+      "extinction_step": null,
+      "mean_fitness": 0.36386,
+      "final_gen_fitness": 0.4425,
+      "gen_alive_end": [
+        35,
+        44,
+        39,
+        52,
+        37
+      ]
+    },
+    {
+      "seed": 1137,
+      "extinct": false,
+      "extinction_step": null,
+      "mean_fitness": 0.35946,
+      "final_gen_fitness": 0.4563,
+      "gen_alive_end": [
+        21,
+        38,
+        19,
+        11,
+        14
+      ]
+    },
+    {
+      "seed": 1274,
+      "extinct": false,
+      "extinction_step": null,
+      "mean_fitness": 0.43104,
+      "final_gen_fitness": 0.523,
+      "gen_alive_end": [
+        39,
+        11,
+        11,
+        11,
+        16
+      ]
+    },
+    {
+      "seed": 1411,
+      "extinct": false,
+      "extinction_step": null,
+      "mean_fitness": 0.35816,
+      "final_gen_fitness": 0.4097,
+      "gen_alive_end": [
+        30,
+        57,
+        40,
+        23,
+        35
+      ]
+    },
+    {
+      "seed": 1548,
+      "extinct": false,
+      "extinction_step": null,
+      "mean_fitness": 0.29816,
+      "final_gen_fitness": 0.3252,
+      "gen_alive_end": [
+        17,
+        16,
+        25,
+        10,
+        5
+      ]
+    },
+    {
+      "seed": 1685,
+      "extinct": false,
+      "extinction_step": null,
+      "mean_fitness": 0.36496,
+      "final_gen_fitness": 0.3958,
+      "gen_alive_end": [
+        41,
+        25,
+        26,
+        28,
+        32
+      ]
+    },
+    {
+      "seed": 1822,
+      "extinct": false,
+      "extinction_step": null,
+      "mean_fitness": 0.30704,
+      "final_gen_fitness": 0.2977,
+      "gen_alive_end": [
+        48,
+        20,
+        29,
+        10,
+        3
+      ]
+    },
+    {
+      "seed": 1959,
+      "extinct": false,
+      "extinction_step": null,
+      "mean_fitness": 0.31416,
+      "final_gen_fitness": 0.3513,
+      "gen_alive_end": [
+        40,
+        31,
+        25,
+        11,
+        5
+      ]
+    },
+    {
+      "seed": 2096,
+      "extinct": false,
+      "extinction_step": null,
+      "mean_fitness": 0.31412,
+      "final_gen_fitness": 0.4059,
+      "gen_alive_end": [
+        40,
+        23,
+        20,
+        6,
+        8
+      ]
+    },
+    {
+      "seed": 2233,
+      "extinct": false,
+      "extinction_step": null,
+      "mean_fitness": 0.35766,
+      "final_gen_fitness": 0.4022,
+      "gen_alive_end": [
+        21,
+        34,
+        25,
+        17,
+        6
+      ]
+    },
+    {
+      "seed": 2370,
+      "extinct": false,
+      "extinction_step": null,
+      "mean_fitness": 0.3386,
+      "final_gen_fitness": 0.3858,
+      "gen_alive_end": [
+        39,
+        40,
+        30,
+        8,
+        11
+      ]
+    },
+    {
+      "seed": 2507,
+      "extinct": false,
+      "extinction_step": null,
+      "mean_fitness": 0.3551,
+      "final_gen_fitness": 0.3859,
+      "gen_alive_end": [
+        29,
+        21,
+        20,
+        14,
+        3
+      ]
+    },
+    {
+      "seed": 2644,
+      "extinct": false,
+      "extinction_step": null,
+      "mean_fitness": 0.37912,
+      "final_gen_fitness": 0.3576,
+      "gen_alive_end": [
+        25,
+        20,
+        9,
+        1,
+        7
+      ]
+    },
+    {
+      "seed": 2781,
+      "extinct": false,
+      "extinction_step": null,
+      "mean_fitness": 0.34936,
+      "final_gen_fitness": 0.4331,
+      "gen_alive_end": [
+        27,
+        35,
+        29,
+        24,
+        15
+      ]
+    },
+    {
+      "seed": 2918,
+      "extinct": false,
+      "extinction_step": null,
+      "mean_fitness": 0.37506,
+      "final_gen_fitness": 0.4294,
+      "gen_alive_end": [
+        30,
+        21,
+        21,
+        12,
+        9
+      ]
+    }
+  ],
+  "elapsed_seconds": 146.5
+}

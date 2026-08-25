@@ -1,0 +1,503 @@
+{
+  "label": "calibrated",
+  "config_source": "configs/calibrated.yaml",
+  "n_seeds": 30,
+  "num_generations": 5,
+  "steps_per_generation": 1000,
+  "seeds": [
+    1000,
+    1137,
+    1274,
+    1411,
+    1548,
+    1685,
+    1822,
+    1959,
+    2096,
+    2233,
+    2370,
+    2507,
+    2644,
+    2781,
+    2918,
+    3055,
+    3192,
+    3329,
+    3466,
+    3603,
+    3740,
+    3877,
+    4014,
+    4151,
+    4288,
+    4425,
+    4562,
+    4699,
+    4836,
+    4973
+  ],
+  "extinction_rate": 0.5667,
+  "n_extinct": 17,
+  "extinction_steps": [
+    4688,
+    3912,
+    null,
+    null,
+    null,
+    2794,
+    null,
+    null,
+    null,
+    4959,
+    null,
+    2540,
+    null,
+    null,
+    null,
+    null,
+    931,
+    null,
+    4724,
+    4943,
+    2725,
+    1992,
+    3928,
+    2930,
+    3868,
+    4994,
+    4740,
+    1887,
+    1924,
+    null
+  ],
+  "km_median_survival": 4943,
+  "km_n_events": 17,
+  "km_n_censored": 13,
+  "mean_fitness_mean": 0.518029,
+  "mean_fitness_std": 0.12711,
+  "final_gen_fitness_mean": 0.408867,
+  "final_gen_fitness_std": 0.313883,
+  "per_seed": [
+    {
+      "seed": 1000,
+      "extinct": true,
+      "extinction_step": 4688,
+      "mean_fitness": 0.54802,
+      "final_gen_fitness": 0.0,
+      "gen_alive_end": [
+        6,
+        9,
+        2,
+        2,
+        0
+      ]
+    },
+    {
+      "seed": 1137,
+      "extinct": true,
+      "extinction_step": 3912,
+      "mean_fitness": 0.5315,
+      "final_gen_fitness": 0.6947,
+      "gen_alive_end": [
+        1,
+        4,
+        1,
+        0,
+        3
+      ]
+    },
+    {
+      "seed": 1274,
+      "extinct": false,
+      "extinction_step": null,
+      "mean_fitness": 0.71096,
+      "final_gen_fitness": 0.7157,
+      "gen_alive_end": [
+        3,
+        2,
+        3,
+        2,
+        1
+      ]
+    },
+    {
+      "seed": 1411,
+      "extinct": false,
+      "extinction_step": null,
+      "mean_fitness": 0.6165,
+      "final_gen_fitness": 0.5156,
+      "gen_alive_end": [
+        2,
+        4,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "seed": 1548,
+      "extinct": false,
+      "extinction_step": null,
+      "mean_fitness": 0.68794,
+      "final_gen_fitness": 0.7776,
+      "gen_alive_end": [
+        9,
+        5,
+        4,
+        3,
+        7
+      ]
+    },
+    {
+      "seed": 1685,
+      "extinct": true,
+      "extinction_step": 2794,
+      "mean_fitness": 0.4477,
+      "final_gen_fitness": 0.5507,
+      "gen_alive_end": [
+        1,
+        1,
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "seed": 1822,
+      "extinct": false,
+      "extinction_step": null,
+      "mean_fitness": 0.4894,
+      "final_gen_fitness": 0.2791,
+      "gen_alive_end": [
+        11,
+        21,
+        5,
+        17,
+        4
+      ]
+    },
+    {
+      "seed": 1959,
+      "extinct": false,
+      "extinction_step": null,
+      "mean_fitness": 0.6443,
+      "final_gen_fitness": 0.5217,
+      "gen_alive_end": [
+        7,
+        1,
+        4,
+        5,
+        2
+      ]
+    },
+    {
+      "seed": 2096,
+      "extinct": false,
+      "extinction_step": null,
+      "mean_fitness": 0.6718,
+      "final_gen_fitness": 0.6586,
+      "gen_alive_end": [
+        5,
+        4,
+        6,
+        2,
+        1
+      ]
+    },
+    {
+      "seed": 2233,
+      "extinct": true,
+      "extinction_step": 4959,
+      "mean_fitness": 0.48286,
+      "final_gen_fitness": 0.0,
+      "gen_alive_end": [
+        1,
+        1,
+        4,
+        1,
+        0
+      ]
+    },
+    {
+      "seed": 2370,
+      "extinct": false,
+      "extinction_step": null,
+      "mean_fitness": 0.55838,
+      "final_gen_fitness": 0.4698,
+      "gen_alive_end": [
+        1,
+        22,
+        3,
+        15,
+        12
+      ]
+    },
+    {
+      "seed": 2507,
+      "extinct": true,
+      "extinction_step": 2540,
+      "mean_fitness": 0.23982,
+      "final_gen_fitness": 0.0,
+      "gen_alive_end": [
+        3,
+        3,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 2644,
+      "extinct": false,
+      "extinction_step": null,
+      "mean_fitness": 0.65328,
+      "final_gen_fitness": 0.6238,
+      "gen_alive_end": [
+        1,
+        4,
+        2,
+        1,
+        1
+      ]
+    },
+    {
+      "seed": 2781,
+      "extinct": false,
+      "extinction_step": null,
+      "mean_fitness": 0.58862,
+      "final_gen_fitness": 0.8645,
+      "gen_alive_end": [
+        6,
+        12,
+        15,
+        4,
+        1
+      ]
+    },
+    {
+      "seed": 2918,
+      "extinct": false,
+      "extinction_step": null,
+      "mean_fitness": 0.62902,
+      "final_gen_fitness": 0.6122,
+      "gen_alive_end": [
+        3,
+        1,
+        2,
+        1,
+        2
+      ]
+    },
+    {
+      "seed": 3055,
+      "extinct": false,
+      "extinction_step": null,
+      "mean_fitness": 0.61698,
+      "final_gen_fitness": 0.6089,
+      "gen_alive_end": [
+        4,
+        7,
+        4,
+        1,
+        4
+      ]
+    },
+    {
+      "seed": 3192,
+      "extinct": true,
+      "extinction_step": 931,
+      "mean_fitness": 0.23286,
+      "final_gen_fitness": 0.0,
+      "gen_alive_end": [
+        0,
+        0,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "seed": 3329,
+      "extinct": false,
+      "extinction_step": null,
+      "mean_fitness": 0.58398,
+      "final_gen_fitness": 0.6584,
+      "gen_alive_end": [
+        4,
+        4,
+        11,
+        10,
+        3
+      ]
+    },
+    {
+      "seed": 3466,
+      "extinct": true,
+      "extinction_step": 4724,
+      "mean_fitness": 0.53786,
+      "final_gen_fitness": 0.0,
+      "gen_alive_end": [
+        3,
+        1,
+        1,
+        2,
+        0
+      ]
+    },
+    {
+      "seed": 3603,
+      "extinct": true,
+      "extinction_step": 4943,
+      "mean_fitness": 0.46966,
+      "final_gen_fitness": 0.0,
+      "gen_alive_end": [
+        4,
+        2,
+        8,
+        5,
+        0
+      ]
+    },
+    {
+      "seed": 3740,
+      "extinct": true,
+      "extinction_step": 2725,
+      "mean_fitness": 0.36386,
+      "final_gen_fitness": 0.5064,
+      "gen_alive_end": [
+        6,
+        1,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "seed": 3877,
+      "extinct": true,
+      "extinction_step": 1992,
+      "mean_fitness": 0.293,
+      "final_gen_fitness": 0.0,
+      "gen_alive_end": [
+        2,
+        0,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 4014,
+      "extinct": true,
+      "extinction_step": 3928,
+      "mean_fitness": 0.38038,
+      "final_gen_fitness": 0.0,
+      "gen_alive_end": [
+        7,
+        2,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 4151,
+      "extinct": true,
+      "extinction_step": 2930,
+      "mean_fitness": 0.3637,
+      "final_gen_fitness": 0.6985,
+      "gen_alive_end": [
+        3,
+        1,
+        0,
+        0,
+        2
+      ]
+    },
+    {
+      "seed": 4288,
+      "extinct": true,
+      "extinction_step": 3868,
+      "mean_fitness": 0.47268,
+      "final_gen_fitness": 0.4209,
+      "gen_alive_end": [
+        5,
+        3,
+        2,
+        0,
+        8
+      ]
+    },
+    {
+      "seed": 4425,
+      "extinct": true,
+      "extinction_step": 4994,
+      "mean_fitness": 0.47808,
+      "final_gen_fitness": 0.0,
+      "gen_alive_end": [
+        4,
+        9,
+        2,
+        5,
+        0
+      ]
+    },
+    {
+      "seed": 4562,
+      "extinct": true,
+      "extinction_step": 4740,
+      "mean_fitness": 0.54084,
+      "final_gen_fitness": 0.0,
+      "gen_alive_end": [
+        10,
+        1,
+        1,
+        2,
+        0
+      ]
+    },
+    {
+      "seed": 4699,
+      "extinct": true,
+      "extinction_step": 1887,
+      "mean_fitness": 0.55938,
+      "final_gen_fitness": 0.7209,
+      "gen_alive_end": [
+        7,
+        0,
+        3,
+        2,
+        4
+      ]
+    },
+    {
+      "seed": 4836,
+      "extinct": true,
+      "extinction_step": 1924,
+      "mean_fitness": 0.53496,
+      "final_gen_fitness": 0.742,
+      "gen_alive_end": [
+        6,
+        0,
+        8,
+        1,
+        2
+      ]
+    },
+    {
+      "seed": 4973,
+      "extinct": false,
+      "extinction_step": null,
+      "mean_fitness": 0.61254,
+      "final_gen_fitness": 0.626,
+      "gen_alive_end": [
+        3,
+        8,
+        8,
+        9,
+        13
+      ]
+    }
+  ],
+  "elapsed_seconds": 514.1
+}

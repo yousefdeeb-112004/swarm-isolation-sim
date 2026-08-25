@@ -643,3 +643,184 @@ def generate_publication_figures(
     figures["summary_pdf"] = path_pdf
 
     return figures
+
+
+# ======================================================================
+# Mechanism factorial figures (Phase 1, Step B)
+# ======================================================================
+
+def _save_png_pdf(fig, path_stem: str, dpi: int = 300) -> None:
+    """Save a figure as both 300-DPI PNG and PDF."""
+    os.makedirs(os.path.dirname(path_stem) or ".", exist_ok=True)
+    for ext in ("png", "pdf"):
+        fig.savefig(f"{path_stem}.{ext}", dpi=dpi, bbox_inches="tight",
+                    facecolor="white")
+    plt.close(fig)
+
+
+def _sig_stars(p: float) -> str:
+    if p < 0.001:
+        return "***"
+    if p < 0.01:
+        return "**"
+    if p < 0.05:
+        return "*"
+    return ""
+
+
+def plot_mechanism_phase_diagram(analysis: Dict[str, Any],
+                                 path_stem: str) -> Optional[str]:
+    """
+    Phase-diagram heatmap of the fitness impact at the focus isolation ratio.
+
+    x = metabolism_discount, y = predator_protection. Cell colour = mean fitness
+    impact vs control (diverging, centred at 0); annotation = mean +/- 95% CI
+    with significance stars from the per-cell t-test.
+    """
+    if not HAS_MPL:
+        return None
+    _apply_style()
+
+    discounts = analysis["discounts"]
+    # protections displayed with True (immunity ON) on top row
+    protections = sorted(analysis["protections"], reverse=True)
+    focus = analysis["focus_ratio"]
+    pcr = analysis["per_cell_ratio"]
+
+    def key(md, pp, fr):
+        return f"md{int(md*100):02d}_pp{'on' if pp else 'off'}_r{int(fr*100):02d}"
+
+    M = np.full((len(protections), len(discounts)), np.nan)
+    for i, pp in enumerate(protections):
+        for j, md in enumerate(discounts):
+            cell = pcr.get(key(md, pp, focus))
+            if cell:
+                M[i, j] = cell["impact_desc"]["mean"]
+
+    vmax = np.nanmax(np.abs(M)) if np.isfinite(M).any() else 1.0
+    vmax = max(vmax, 1e-6)
+
+    fig, ax = plt.subplots(figsize=(7.2, 3.6))
+    im = ax.imshow(M, cmap="RdBu_r", vmin=-vmax, vmax=vmax, aspect="auto")
+
+    ax.set_xticks(range(len(discounts)))
+    ax.set_xticklabels([f"{d:g}" for d in discounts])
+    ax.set_yticks(range(len(protections)))
+    ax.set_yticklabels([("ON" if pp else "OFF") for pp in protections])
+    ax.set_xlabel("Isolation metabolism discount")
+    ax.set_ylabel("Predator protection")
+    ax.set_title(f"Fitness impact at {int(focus*100)}% isolation\n"
+                 f"(red = paradox holds: treatment > control; blue = reverses)")
+
+    for i, pp in enumerate(protections):
+        for j, md in enumerate(discounts):
+            cell = pcr.get(key(md, pp, focus))
+            if not cell:
+                continue
+            mean = cell["impact_desc"]["mean"]
+            ci = cell["impact_desc"]["ci95"]
+            stars = _sig_stars(cell["ttest_p"])
+            txt_color = "white" if abs(mean) > 0.6 * vmax else "black"
+            ax.text(j, i, f"{mean:+.3f}\n±{ci:.3f}{(' ' + stars) if stars else ''}",
+                    ha="center", va="center", color=txt_color, fontsize=9)
+
+    cbar = fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
+    cbar.set_label("Mean fitness impact (treat − ctrl)")
+    # legacy cell marker (0.5, ON)
+    if 0.5 in discounts and True in protections:
+        jj = discounts.index(0.5)
+        ii = protections.index(True)
+        ax.add_patch(plt.Rectangle((jj - 0.5, ii - 0.5), 1, 1, fill=False,
+                                   edgecolor="black", lw=2.2, linestyle="--"))
+        ax.text(jj, ii - 0.42, "legacy", ha="center", va="bottom",
+                fontsize=7, style="italic")
+    fig.tight_layout()
+    _save_png_pdf(fig, path_stem)
+    return path_stem
+
+
+def plot_mechanism_dose_response(analysis: Dict[str, Any],
+                                 path_stem: str) -> Optional[str]:
+    """
+    2x4 panel of dose-response curves: fitness impact vs isolation ratio for
+    each (predator_protection x metabolism_discount) cell. Ratio 0 = control
+    (impact 0 by definition).
+    """
+    if not HAS_MPL:
+        return None
+    _apply_style()
+
+    discounts = analysis["discounts"]
+    protections = sorted(analysis["protections"], reverse=True)  # True on top
+    ratios = analysis["ratios"]
+    pcr = analysis["per_cell_ratio"]
+
+    def key(md, pp, fr):
+        return f"md{int(md*100):02d}_pp{'on' if pp else 'off'}_r{int(fr*100):02d}"
+
+    nrow, ncol = len(protections), len(discounts)
+    fig, axes = plt.subplots(nrow, ncol, figsize=(3.0 * ncol, 2.6 * nrow),
+                             sharex=True, sharey=True, squeeze=False)
+
+    # Global y-limits from data (symmetric-ish)
+    all_means = []
+    for c in pcr.values():
+        all_means.append(c["impact_desc"]["mean"] + c["impact_desc"]["ci95"])
+        all_means.append(c["impact_desc"]["mean"] - c["impact_desc"]["ci95"])
+    ymax = max(0.02, max(abs(v) for v in all_means)) if all_means else 0.1
+
+    for i, pp in enumerate(protections):
+        for j, md in enumerate(discounts):
+            ax = axes[i][j]
+            xs = [0.0] + [fr * 100 for fr in ratios]
+            ys = [0.0]
+            es = [0.0]
+            sig = [""]
+            for fr in ratios:
+                cell = pcr.get(key(md, pp, fr))
+                if cell:
+                    ys.append(cell["impact_desc"]["mean"])
+                    es.append(cell["impact_desc"]["ci95"])
+                    sig.append(_sig_stars(cell["ttest_p"]))
+                else:
+                    ys.append(np.nan); es.append(0.0); sig.append("")
+            ax.axhline(0, color=COLORS["neutral"], lw=0.8, ls=":")
+            color = COLORS["treatment"] if pp else COLORS["accent1"]
+            ax.errorbar(xs, ys, yerr=es, fmt="-o", color=color,
+                        markersize=4, capsize=2, lw=1.4)
+            for x, y, s in zip(xs, ys, sig):
+                if s:
+                    ax.annotate(s, (x, y), textcoords="offset points",
+                                xytext=(0, 5), ha="center", fontsize=8)
+            ax.set_ylim(-ymax * 1.15, ymax * 1.15)
+            if i == 0:
+                ax.set_title(f"discount={md:g}", fontsize=10)
+            if j == 0:
+                ax.set_ylabel(f"protection {'ON' if pp else 'OFF'}\n"
+                              f"fitness impact", fontsize=9)
+            if i == nrow - 1:
+                ax.set_xlabel("isolation %", fontsize=9)
+
+    fig.suptitle("Dose–response of fitness impact vs. isolation ratio, per "
+                 "mechanism cell\n(ratio 0 = control; +ve = Isolation Paradox "
+                 "holds)", fontsize=11, y=1.02)
+    fig.tight_layout()
+    _save_png_pdf(fig, path_stem)
+    return path_stem
+
+
+def generate_mechanism_figures(analysis: Dict[str, Any],
+                               output_dir: str,
+                               prefix: str = "mechanism") -> Dict[str, str]:
+    """Produce the phase-diagram and dose-response figures (PNG + PDF)."""
+    if not HAS_MPL:
+        return {"error": "matplotlib not available"}
+    os.makedirs(output_dir, exist_ok=True)
+    figs = {}
+    stem = os.path.join(output_dir, f"{prefix}_phase_diagram")
+    if plot_mechanism_phase_diagram(analysis, stem):
+        figs["phase_diagram"] = stem + ".png"
+    stem = os.path.join(output_dir, f"{prefix}_dose_response")
+    if plot_mechanism_dose_response(analysis, stem):
+        figs["dose_response"] = stem + ".png"
+    return figs

@@ -1,0 +1,137 @@
+
+======================================================================
+  SWARM ISOLATION SIMULATION — RESULTS DIAGNOSTIC
+  Investigating: Is 100% extinction a real finding or a bug?
+  Config under test: configs/calibrated.yaml
+======================================================================
+
+
+======================================================================
+  TEST 1: Do control & treatment start from identical seeds?
+======================================================================
+  ✅ OK: Both worlds produce identical agents (50 agents)
+  ✅ OK: Both worlds stay in sync after 10 steps (no isolation)
+
+======================================================================
+  TEST 2: Parameter audit — are isolation parameters reasonable?
+======================================================================
+    Default isolation_frequency: 50 (isolation happens every 50 STEPS)
+    Default isolation_duration:  50 steps
+    Default isolation_fraction:  0.2 (20%)
+    Default steps_per_gen:       1000
+
+    Isolation events per generation: 20
+  ✅ OK: 20 isolation events per generation is reasonable
+  
+    Config YAML says: isolation_frequency: 50  # 'Isolate agents every N steps within a generation'
+    Code does:  if step % isolation_frequency == 0  → every 50 STEPS
+  
+    Agents isolated per event:    10
+    Events during one duration:   1
+    Peak simultaneous isolation:  10 (20% of pop=50)
+  
+    Ratio sweep conditions — effective simultaneous isolation:
+      ratio_5pct: 2/event × 1 overlapping = 2 simultaneous (4% of 50)
+      ratio_10pct: 5/event × 1 overlapping = 5 simultaneous (10% of 50)
+      ratio_20pct: 10/event × 1 overlapping = 10 simultaneous (20% of 50)
+      ratio_30pct: 15/event × 1 overlapping = 15 simultaneous (30% of 50)
+
+======================================================================
+  TEST 3: Energy budget during isolation
+======================================================================
+    Initial energy:         100
+    Metabolism cost/step:   -1 (halved to -0.5 during isolation)
+    Isolation duration:     50 steps
+    Energy after isolation: 100 + (-0.5 × 50) = 75.0
+
+  ✅ OK: Agent survives isolation with 75.0 energy remaining
+  
+  Predator damage per hit: 30 (but isolated agents skip predator checks)
+    Agent returns with 75 energy → can forage to recover
+
+======================================================================
+  TEST 4: What % of treatment is isolated at each timestep?
+======================================================================
+    Population size: 50
+    Step  20:  0 isolated, 50 alive (0% of living are in isolation)
+    Step  50: 10 isolated, 51 alive (20%)
+    Step 100:  8 isolated, 52 alive (15%)
+    Step 150:  8 isolated, 49 alive (16%)
+    Step 200:  7 isolated, 45 alive
+
+    Peak simultaneous isolation: 10 agents at step 50 (20% of total population)
+
+======================================================================
+  TEST 5: Does 0% isolation match control? (null test)
+======================================================================
+    Fitness impact (0% isolation): 0.000000
+    Control fitness:  0.2549
+    Treatment fitness: 0.2549
+    Treatment extinct: False
+  
+  Critical check: int(0.0 * 50) = 0
+  ✅ OK: 0% isolation correctly isolates 0 agents
+
+======================================================================
+  TEST 6: What happens with very infrequent isolation?
+======================================================================
+    Config: 5% fraction, freq=250 (twice/gen), dur=10 steps
+    Fitness impact:    0.0035
+    Treatment extinct: False
+    Ctrl alive final:  33
+    Treat alive final: 32
+  ✅ OK: Minimal isolation has minimal impact (0.0035)
+
+======================================================================
+  TEST 7: Isolation zone position analysis
+======================================================================
+    Isolated agents: 10
+    Unique positions: {(82, 23), (78, 78), (24, 97), (1, 40), (95, 55), (82, 54), (71, 83), (67, 6), (65, 26), (27, 64)}
+  ✅ OK: Isolated agents spread across 10 positions
+    Isolated agents with food at position: 0/10
+  ⚠️  WARNING: No food at any isolation position — agents may struggle
+
+======================================================================
+  TEST 8: Does control population stay healthy?
+======================================================================
+    Gen 0: 33 alive, avg energy=102.0, avg fitness=0.2165
+    Gen 1: 21 alive, avg energy=90.5, avg fitness=0.2810
+  ✅ OK: Control population survives: 21 alive after 2 generations
+
+======================================================================
+  TEST 9: Step-by-step death timeline for treatment
+======================================================================
+    Total deaths:          24
+    Deaths DURING isolation: 0 (0%)
+    Deaths OUTSIDE isolation: 24 (100%)
+    First death at step:   100
+    Death causes: {'starvation': 21, 'old_age': 3}
+  ✅ OK: Most deaths occur outside isolation period
+  
+  Control: 33 alive, 27 dead at step 300
+
+======================================================================
+  DIAGNOSTIC SUMMARY
+======================================================================
+
+  Passed: 9  |  Warnings: 1  |  Bugs: 0
+
+  ═══ WARNINGS ═══
+  1. No food at any isolation position — agents may struggle
+
+  ═══ ROOT CAUSE ANALYSIS ═══
+
+  The diagnostic checks whether the simulation's isolation mechanics
+  are properly calibrated. Issues found above (if any) indicate
+  remaining problems. Previously fixed issues included:
+
+  [FIXED] isolation_frequency now 50 steps (was 5)
+  [FIXED] isolation_duration now 50 steps (was 100)
+  [FIXED] Isolated agents get half metabolism cost
+  [FIXED] Isolated agents skip predator collisions
+  [FIXED] max(1,...) replaced with int() — 0% isolation = 0 agents
+  [FIXED] Agents scattered to random positions during isolation
+
+  If all tests pass, the simulation is correctly calibrated and
+  results reflect genuine isolation effects, not parameter artifacts.
+

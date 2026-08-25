@@ -382,16 +382,21 @@ class Agent:
                 self.x, self.y = nx, ny
                 result["moved"] = True
 
-        # Metabolism cost (reduced during isolation — agents are inactive)
+        # Metabolism cost (optionally discounted during isolation).
+        # isolation_metabolism_discount is the FRACTION of the cost waived while
+        # isolated: 0.0 = full cost, 0.5 = legacy half-cost, 1.0 = no cost.
         metabolism = env.config.agents.energy_per_step
         if self.is_isolated:
-            metabolism *= 0.5  # Half metabolism cost while isolated
+            discount = env.config.experiment.isolation_metabolism_discount
+            metabolism *= (1.0 - discount)
         self.energy += metabolism
         result["energy_change"] += metabolism
         self.total_energy_lost += abs(metabolism)
 
-        # Predator collision (skip if isolated — agent is in separate zone)
-        if not self.is_isolated:
+        # Predator collision. Isolated agents skip predator damage only when
+        # isolation_predator_protection is enabled (legacy behaviour = True).
+        protection = env.config.experiment.isolation_predator_protection
+        if not (self.is_isolated and protection):
             damage = env.check_predator_collision(self.x, self.y)
             if damage > 0:
                 self.energy -= damage

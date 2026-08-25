@@ -107,6 +107,37 @@ def plot_trajectory(default, calibrated, out_stem: str):
     print(f"[*] wrote {out_stem}.png / .pdf")
 
 
+def plot_energy_response(points, chosen_ev, out_stem: str):
+    """Extinction rate vs energy_value (four 30-seed points), band shaded."""
+    evs = [p[0] for p in points]
+    rates = [p[1] * 100 for p in points]
+    fig, ax = plt.subplots(figsize=(6.0, 4.0))
+    ax.axhspan(20, 50, color=COLORS["highlight"], alpha=0.12,
+               label="target band (20–50%)")
+    ax.plot(evs, rates, "-o", color=COLORS["neutral"], linewidth=1.6,
+            markersize=6, zorder=3)
+    for ev, rate in zip(evs, rates):
+        is_chosen = (ev == chosen_ev)
+        ax.plot([ev], [rate], "o", markersize=11 if is_chosen else 0,
+                markerfacecolor="none",
+                markeredgecolor=COLORS["treatment"], markeredgewidth=2,
+                zorder=4)
+        ax.annotate(f"{rate:.1f}%", (ev, rate),
+                    textcoords="offset points", xytext=(6, 8),
+                    fontsize=9,
+                    fontweight="bold" if is_chosen else "normal")
+    ax.set_xlabel("Food energy_value")
+    ax.set_ylabel("Control extinction rate (%, 30 seeds)")
+    ax.set_title("Energy-response calibration curve\n"
+                 f"(chosen: energy_value={chosen_ev}, red ring)")
+    ax.set_ylim(0, 100)
+    ax.set_xticks(evs)
+    ax.legend(loc="upper right", frameon=False)
+    fig.tight_layout()
+    _save(fig, out_stem)
+    print(f"[*] wrote {out_stem}.png / .pdf")
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--default", required=True,
@@ -114,6 +145,8 @@ def main():
     p.add_argument("--calibrated", required=True,
                    help="stem of calibrated baseline (no extension)")
     p.add_argument("--out", default="data/results/phase1")
+    p.add_argument("--chosen-ev", type=int, default=50,
+                   help="chosen energy_value (highlighted on the curve)")
     args = p.parse_args()
 
     plt.rcParams.update(PUB_STYLE)
@@ -125,6 +158,23 @@ def main():
     plot_km(default, calibrated, os.path.join(fig_dir, "step_a_kaplan_meier"))
     plot_trajectory(default, calibrated,
                     os.path.join(fig_dir, "step_a_population_trajectory"))
+
+    # Energy-response curve from the four 30-seed points (skip any missing).
+    ev_stems = {
+        20: "control_baseline_default_baseline",
+        40: "control_baseline_calibrated_ev40",
+        50: "control_baseline_calibrated_ev50",
+        55: "control_baseline_calibrated_ev55",
+    }
+    points = []
+    for ev, stem in sorted(ev_stems.items()):
+        path = os.path.join(args.out, stem + ".json")
+        if os.path.exists(path):
+            with open(path) as f:
+                points.append((ev, json.load(f)["extinction_rate"]))
+    if len(points) >= 2:
+        plot_energy_response(points, args.chosen_ev,
+                             os.path.join(fig_dir, "step_a_energy_response"))
 
 
 if __name__ == "__main__":

@@ -60,6 +60,18 @@ def parse_args() -> argparse.Namespace:
         help="Selection criteria for isolation (default: adventurousness)"
     )
     parser.add_argument(
+        "--isolation-metabolism-discount", type=float, default=None,
+        metavar="F",
+        help="Fraction of metabolism cost waived while isolated, in [0,1] "
+             "(default: from config; 0.0=full cost, 0.5=legacy, 1.0=no cost)"
+    )
+    parser.add_argument(
+        "--isolation-predator-protection", type=str, default=None,
+        choices=["true", "false"],
+        help="Whether isolated agents are immune to predators "
+             "(default: from config; true=legacy behaviour)"
+    )
+    parser.add_argument(
         "--export", type=str, default=None, metavar="DIR",
         help="Export collected data to CSV/JSON in DIR (e.g., data/exports)"
     )
@@ -78,7 +90,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--sweep", type=str, default=None, metavar="TYPE",
         choices=["selection_criteria", "ratio_sweep", "duration_sweep",
-                 "resource_variation", "no_return", "generation_length", "all"],
+                 "resource_variation", "no_return", "generation_length",
+                 "mechanism_sweep", "all"],
         help="Run parameter sweep experiment (Section 12)"
     )
     parser.add_argument(
@@ -108,6 +121,12 @@ def main():
         config.world.seed = args.seed
     if args.steps is not None:
         config.world.max_steps = args.steps
+    if args.isolation_metabolism_discount is not None:
+        config.experiment.isolation_metabolism_discount = args.isolation_metabolism_discount
+    if args.isolation_predator_protection is not None:
+        config.experiment.isolation_predator_protection = (
+            args.isolation_predator_protection == "true"
+        )
 
     # Sweep mode (Section 12)
     if args.sweep:
