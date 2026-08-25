@@ -614,4 +614,400 @@
     [605/960] mech_md50_ppoff_r05 seed=1822 impact=+0.0841 ok | 837.0min elapsed, ETA 491min
     [606/960] mech_md50_ppon_r30 seed=4836 impact=+0.0872 ok | 837.1min elapsed, ETA 489min
     [607/960] mech_md50_ppoff_r05 seed=1685 impact=+0.0080 ok | 837.9min elapsed, ETA 487min
-                                                                                             
+                                                                                             [*] Mechanism factorial (checkpointed)
+    config      : configs/calibrated.yaml (energy_value=50)
+    conditions  : 32 (8 cells x 4 ratios)
+    seeds       : 30  gen x steps: 5 x 1000
+    total runs  : 960
+    checkpoint  : data/results/phase1/mechanism/checkpoint.jsonl
+    already done: 608 runs (resuming)
+    remaining   : 352 runs
+    workers     : 12
+    [609/960] mech_md50_ppoff_r05 seed=2781 impact=+0.0034 ok | 5.1min elapsed, ETA 1797min
+    [610/960] mech_md50_ppoff_r05 seed=3192 impact=+0.1282 ok | 5.2min elapsed, ETA 904min
+    [611/960] mech_md50_ppoff_r05 seed=2507 impact=-0.3112 EXT | 5.3min elapsed, ETA 620min
+    [612/960] mech_md50_ppoff_r05 seed=2644 impact=+0.0682 ok | 5.4min elapsed, ETA 467min
+    [613/960] mech_md50_ppoff_r05 seed=3329 impact=-0.0781 EXT | 5.5min elapsed, ETA 379min
+    [614/960] mech_md50_ppoff_r05 seed=2233 impact=+0.1899 ok | 6.6min elapsed, ETA 378min
+    [615/960] mech_md50_ppoff_r05 seed=3466 impact=-0.0265 EXT | 6.6min elapsed, ETA 323min
+    [616/960] mech_md50_ppoff_r05 seed=1959 impact=-0.0194 ok | 8.1min elapsed, ETA 350min
+    [617/960] mech_md50_ppoff_r05 seed=3055 impact=+0.0879 EXT | 8.3min elapsed, ETA 317min
+    [618/960] mech_md50_ppoff_r05 seed=3603 impact=-0.1585 EXT | 9.3min elapsed, ETA 319min
+    [619/960] mech_md50_ppoff_r05 seed=2370 impact=+0.0121 ok | 9.8min elapsed, ETA 303min
+    [620/960] mech_md50_ppoff_r05 seed=2918 impact=+0.0974 ok | 10.7min elapsed, ETA 304min
+    [621/960] mech_md50_ppoff_r05 seed=3877 impact=-0.2125 EXT | 11.3min elapsed, ETA 294min
+    [622/960] mech_md50_ppoff_r05 seed=4151 impact=+0.0478 ok | 11.3min elapsed, ETA 274min
+    [623/960] mech_md50_ppoff_r05 seed=4288 impact=-0.0931 EXT | 11.9min elapsed, ETA 267min
+    [624/960] mech_md50_ppoff_r05 seed=4562 impact=+0.0086 EXT | 12.6min elapsed, ETA 264min
+    [625/960] mech_md50_ppoff_r05 seed=4425 impact=-0.0615 ok | 12.8min elapsed, ETA 253min
+    [626/960] mech_md50_ppoff_r05 seed=3740 impact=-0.0664 ok | 12.9min elapsed, ETA 240min
+    [627/960] mech_md50_ppoff_r05 seed=4014 impact=-0.1464 EXT | 15.2min elapsed, ETA 266min
+    [628/960] mech_md50_ppoff_r05 seed=4699 impact=-0.1152 EXT | 15.2min elapsed, ETA 253min
+    [629/960] mech_md50_ppoff_r10 seed=1137 impact=-0.2866 EXT | 16.0min elapsed, ETA 253min
+    [630/960] mech_md50_ppoff_r10 seed=1411 impact=+0.1609 ok | 16.6min elapsed, ETA 249min
+    [631/960] mech_md50_ppoff_r05 seed=4836 impact=+0.1365 ok | 17.2min elapsed, ETA 246min
+    [632/960] mech_md50_ppoff_r10 seed=1274 impact=+0.0918 ok | 17.4min elapsed, ETA 238min
+    [633/960] mech_md50_ppoff_r10 seed=1822 impact=-0.0475 EXT | 18.4min elapsed, ETA 241min
+    [634/960] mech_md50_ppoff_r10 seed=1685 impact=-0.0221 EXT | 18.6min elapsed, ETA 233min
+    [635/960] mech_md50_ppoff_r10 seed=1000 impact=+0.0776 ok | 19.3min elapsed, ETA 232min
+    [636/960] mech_md50_ppoff_r10 seed=1548 impact=-0.0655 EXT | 19.5min elapsed, ETA 226min
+    [637/960] mech_md50_ppoff_r05 seed=4973 impact=-0.0453 EXT | 20.5min elapsed, ETA 228min
+    [638/960] mech_md50_ppoff_r10 seed=1959 impact=+0.0037 ok | 21.1min elapsed, ETA 226min
+    [639/960] mech_md50_ppoff_r10 seed=2096 impact=-0.0336 ok | 21.1min elapsed, ETA 218min
+    [640/960] mech_md50_ppoff_r10 seed=2233 impact=+0.1524 ok | 21.8min elapsed, ETA 218min
+    [641/960] mech_md50_ppoff_r10 seed=2507 impact=-0.3261 EXT | 22.0min elapsed, ETA 212min
+    [642/960] mech_md50_ppoff_r10 seed=2370 impact=+0.0295 ok | 22.6min elapsed, ETA 211min
+    [643/960] mech_md50_ppoff_r10 seed=2781 impact=-0.0884 ok | 24.1min elapsed, ETA 219min
+    [644/960] mech_md50_ppoff_r10 seed=2644 impact=+0.0847 ok | 24.9min elapsed, ETA 219min
+    [645/960] mech_md50_ppoff_r10 seed=3055 impact=+0.2468 ok | 25.0min elapsed, ETA 213min
+    [646/960] mech_md50_ppoff_r10 seed=2918 impact=+0.0920 ok | 25.3min elapsed, ETA 209min
+    [647/960] mech_md50_ppoff_r10 seed=3192 impact=-0.2845 EXT | 27.2min elapsed, ETA 218min
+    [648/960] mech_md50_ppoff_r10 seed=3740 impact=-0.0751 ok | 27.6min elapsed, ETA 215min
+    [649/960] mech_md50_ppoff_r10 seed=3329 impact=+0.0413 ok | 27.7min elapsed, ETA 210min
+    [650/960] mech_md50_ppoff_r10 seed=3877 impact=-0.0119 EXT | 27.8min elapsed, ETA 205min
+    [651/960] mech_md50_ppoff_r10 seed=3603 impact=-0.0359 ok | 28.0min elapsed, ETA 201min
+    [652/960] mech_md50_ppoff_r10 seed=4151 impact=+0.1679 ok | 29.8min elapsed, ETA 209min
+    [653/960] mech_md50_ppoff_r10 seed=3466 impact=+0.1806 ok | 30.0min elapsed, ETA 205min
+    [654/960] mech_md50_ppoff_r10 seed=4014 impact=-0.0059 ok | 30.2min elapsed, ETA 201min
+    [655/960] mech_md50_ppoff_r10 seed=4288 impact=+0.0516 ok | 30.6min elapsed, ETA 199min
+    [656/960] mech_md50_ppoff_r10 seed=4699 impact=+0.0510 ok | 31.9min elapsed, ETA 202min
+    [657/960] mech_md50_ppoff_r10 seed=4425 impact=-0.1309 EXT | 32.0min elapsed, ETA 198min
+    [658/960] mech_md50_ppoff_r10 seed=4562 impact=+0.0023 ok | 32.0min elapsed, ETA 193min
+    [659/960] mech_md50_ppoff_r20 seed=1137 impact=+0.0009 ok | 35.2min elapsed, ETA 208min
+    [660/960] mech_md50_ppoff_r10 seed=4836 impact=-0.0084 EXT | 35.3min elapsed, ETA 204min
+    [661/960] mech_md50_ppoff_r20 seed=1274 impact=+0.0712 ok | 35.4min elapsed, ETA 200min
+    [662/960] mech_md50_ppoff_r20 seed=1411 impact=+0.1572 ok | 35.6min elapsed, ETA 196min
+    [663/960] mech_md50_ppoff_r10 seed=4973 impact=+0.0748 ok | 36.2min elapsed, ETA 195min
+    [664/960] mech_md50_ppoff_r20 seed=1685 impact=-0.0617 EXT | 36.8min elapsed, ETA 194min
+    [665/960] mech_md50_ppoff_r20 seed=1822 impact=+0.0883 ok | 37.6min elapsed, ETA 194min
+    [666/960] mech_md50_ppoff_r20 seed=2096 impact=+0.0033 ok | 38.2min elapsed, ETA 194min
+    [667/960] mech_md50_ppoff_r20 seed=1548 impact=+0.0048 ok | 38.7min elapsed, ETA 192min
+    [668/960] mech_md50_ppoff_r20 seed=2233 impact=+0.0980 ok | 38.9min elapsed, ETA 189min
+    [669/960] mech_md50_ppoff_r20 seed=1000 impact=-0.0119 ok | 39.2min elapsed, ETA 187min
+    [670/960] mech_md50_ppoff_r20 seed=1959 impact=-0.0416 ok | 39.4min elapsed, ETA 184min
+    [671/960] mech_md50_ppoff_r20 seed=2644 impact=+0.0589 ok | 41.0min elapsed, ETA 188min
+    [672/960] mech_md50_ppoff_r20 seed=2781 impact=-0.0071 ok | 41.4min elapsed, ETA 186min
+    [673/960] mech_md50_ppoff_r20 seed=2918 impact=+0.1452 ok | 43.1min elapsed, ETA 190min
+    [674/960] mech_md50_ppoff_r20 seed=3055 impact=+0.2214 ok | 43.4min elapsed, ETA 188min
+    [675/960] mech_md50_ppoff_r20 seed=3192 impact=+0.0222 ok | 43.7min elapsed, ETA 186min
+    [676/960] mech_md50_ppoff_r20 seed=3329 impact=-0.0531 ok | 44.7min elapsed, ETA 187min
+    [677/960] mech_md50_ppoff_r20 seed=2507 impact=-0.0617 ok | 44.8min elapsed, ETA 184min
+    [678/960] mech_md50_ppoff_r20 seed=3877 impact=+0.0909 ok | 45.5min elapsed, ETA 183min
+    [679/960] mech_md50_ppoff_r20 seed=3603 impact=-0.0561 ok | 45.8min elapsed, ETA 181min
+    [680/960] mech_md50_ppoff_r20 seed=2370 impact=+0.0595 ok | 46.0min elapsed, ETA 179min
+    [681/960] mech_md50_ppoff_r20 seed=3466 impact=+0.1274 ok | 48.0min elapsed, ETA 183min
+    [682/960] mech_md50_ppoff_r20 seed=4151 impact=+0.0797 ok | 48.0min elapsed, ETA 180min
+    [683/960] mech_md50_ppoff_r20 seed=4014 impact=-0.0868 EXT | 48.9min elapsed, ETA 180min
+    [684/960] mech_md50_ppoff_r20 seed=3740 impact=-0.0695 ok | 49.0min elapsed, ETA 178min
+    [685/960] mech_md50_ppoff_r20 seed=4562 impact=+0.1159 ok | 49.3min elapsed, ETA 176min
+    [686/960] mech_md50_ppoff_r20 seed=4288 impact=-0.1202 EXT | 49.5min elapsed, ETA 174min
+    [687/960] mech_md50_ppoff_r20 seed=4425 impact=+0.0437 ok | 49.8min elapsed, ETA 172min
+    [688/960] mech_md50_ppoff_r20 seed=4699 impact=-0.0315 ok | 51.5min elapsed, ETA 175min
+    [689/960] mech_md50_ppoff_r20 seed=4836 impact=+0.0265 ok | 52.7min elapsed, ETA 176min
+    [690/960] mech_md50_ppoff_r30 seed=1411 impact=+0.0376 ok | 53.8min elapsed, ETA 177min
+    [691/960] mech_md50_ppoff_r20 seed=4973 impact=+0.0405 ok | 53.9min elapsed, ETA 175min
+    [692/960] mech_md50_ppoff_r30 seed=1000 impact=+0.0509 ok | 54.1min elapsed, ETA 173min
+    [693/960] mech_md50_ppoff_r30 seed=1137 impact=-0.0602 ok | 54.2min elapsed, ETA 170min
+    [694/960] mech_md50_ppoff_r30 seed=1548 impact=-0.0383 ok | 54.8min elapsed, ETA 169min
+    [695/960] mech_md50_ppoff_r30 seed=2096 impact=+0.0240 ok | 100.3min elapsed, ETA 305min
+    [696/960] mech_md50_ppoff_r30 seed=1822 impact=+0.0529 ok | 100.6min elapsed, ETA 302min
+    [697/960] mech_md50_ppoff_r30 seed=1274 impact=+0.0936 ok | 101.0min elapsed, ETA 298min
+    [698/960] mech_md50_ppoff_r30 seed=1685 impact=+0.0493 ok | 102.0min elapsed, ETA 297min
+    [699/960] mech_md50_ppoff_r30 seed=1959 impact=-0.0853 ok | 102.5min elapsed, ETA 294min
+    [700/960] mech_md50_ppoff_r30 seed=2233 impact=+0.1501 ok | 102.6min elapsed, ETA 290min
+    [701/960] mech_md50_ppoff_r30 seed=2644 impact=+0.0719 ok | 104.6min elapsed, ETA 291min
+    [702/960] mech_md50_ppoff_r30 seed=2781 impact=-0.1059 ok | 105.1min elapsed, ETA 289min
+    [703/960] mech_md50_ppoff_r30 seed=2370 impact=+0.0877 ok | 105.6min elapsed, ETA 286min
+    [704/960] mech_md50_ppoff_r30 seed=3192 impact=+0.1352 ok | 105.9min elapsed, ETA 282min
+    [705/960] mech_md50_ppoff_r30 seed=2507 impact=-0.0213 ok | 106.0min elapsed, ETA 279min
+    [706/960] mech_md50_ppoff_r30 seed=3329 impact=-0.0100 ok | 106.7min elapsed, ETA 277min
+    [707/960] mech_md50_ppoff_r30 seed=2918 impact=+0.0462 ok | 107.0min elapsed, ETA 273min
+    [708/960] mech_md50_ppoff_r30 seed=3466 impact=+0.1220 ok | 107.4min elapsed, ETA 271min
+    [709/960] mech_md50_ppoff_r30 seed=3603 impact=-0.1636 EXT | 108.2min elapsed, ETA 269min
+    [710/960] mech_md50_ppoff_r30 seed=3055 impact=+0.2534 ok | 108.6min elapsed, ETA 266min
+    [711/960] mech_md50_ppoff_r30 seed=3877 impact=-0.2054 EXT | 108.7min elapsed, ETA 263min
+    [712/960] mech_md50_ppoff_r30 seed=3740 impact=-0.0397 ok | 109.5min elapsed, ETA 261min
+    [713/960] mech_md50_ppoff_r30 seed=4151 impact=+0.0822 ok | 112.0min elapsed, ETA 263min
+    [714/960] mech_md50_ppoff_r30 seed=4425 impact=+0.0567 ok | 112.5min elapsed, ETA 261min
+    [715/960] mech_md50_ppoff_r30 seed=4836 impact=+0.0872 ok | 113.2min elapsed, ETA 259min
+    [716/960] mech_md50_ppoff_r30 seed=4699 impact=+0.0416 ok | 113.4min elapsed, ETA 256min
+    [717/960] mech_md50_ppoff_r30 seed=4288 impact=+0.0748 ok | 113.6min elapsed, ETA 253min
+    [718/960] mech_md75_ppon_r05 seed=1411 impact=+0.1351 ok | 114.0min elapsed, ETA 251min
+    [719/960] mech_md75_ppon_r05 seed=1000 impact=-0.0382 EXT | 114.3min elapsed, ETA 248min
+    [720/960] mech_md75_ppon_r05 seed=1274 impact=+0.0355 EXT | 114.6min elapsed, ETA 246min
+    [721/960] mech_md50_ppoff_r30 seed=4562 impact=+0.1162 ok | 114.6min elapsed, ETA 242min
+    [722/960] mech_md50_ppoff_r30 seed=4014 impact=-0.0348 ok | 115.0min elapsed, ETA 240min
+    [723/960] mech_md50_ppoff_r30 seed=4973 impact=+0.0324 ok | 115.6min elapsed, ETA 238min
+    [724/960] mech_md75_ppon_r05 seed=1137 impact=-0.1841 EXT | 115.8min elapsed, ETA 236min
+    [725/960] mech_md75_ppon_r05 seed=1685 impact=-0.2538 EXT | 118.1min elapsed, ETA 237min
+    [726/960] mech_md75_ppon_r05 seed=1548 impact=-0.0532 ok | 118.7min elapsed, ETA 235min
+    [727/960] mech_md75_ppon_r05 seed=1822 impact=+0.1639 ok | 118.9min elapsed, ETA 233min
+    [728/960] mech_md75_ppon_r05 seed=2233 impact=+0.1398 ok | 119.6min elapsed, ETA 231min
+    [729/960] mech_md75_ppon_r05 seed=2507 impact=-0.1881 EXT | 119.9min elapsed, ETA 229min
+    [730/960] mech_md75_ppon_r05 seed=2644 impact=-0.2566 EXT | 120.1min elapsed, ETA 226min
+    [731/960] mech_md75_ppon_r05 seed=1959 impact=-0.0453 ok | 120.8min elapsed, ETA 225min
+    [732/960] mech_md75_ppon_r05 seed=2096 impact=-0.0336 ok | 121.2min elapsed, ETA 223min
+    [733/960] mech_md75_ppon_r05 seed=2370 impact=+0.0196 ok | 121.8min elapsed, ETA 221min
+    [734/960] mech_md75_ppon_r05 seed=2781 impact=-0.0318 ok | 122.4min elapsed, ETA 220min
+    [735/960] mech_md75_ppon_r05 seed=3192 impact=-0.0834 EXT | 122.7min elapsed, ETA 217min
+    [736/960] mech_md75_ppon_r05 seed=2918 impact=-0.0886 EXT | 123.1min elapsed, ETA 215min
+    [737/960] mech_md75_ppon_r05 seed=3055 impact=+0.1828 ok | 124.6min elapsed, ETA 215min
+    [738/960] mech_md75_ppon_r05 seed=3329 impact=+0.0371 ok | 124.6min elapsed, ETA 213min
+    [739/960] mech_md75_ppon_r05 seed=3466 impact=+0.1556 ok | 125.7min elapsed, ETA 212min
+    [740/960] mech_md75_ppon_r05 seed=3603 impact=-0.0298 ok | 126.0min elapsed, ETA 210min
+    [741/960] mech_md75_ppon_r05 seed=3740 impact=-0.0270 ok | 126.3min elapsed, ETA 208min
+    [742/960] mech_md75_ppon_r05 seed=4288 impact=-0.2643 EXT | 127.6min elapsed, ETA 208min
+    [743/960] mech_md75_ppon_r05 seed=3877 impact=-0.2004 EXT | 127.9min elapsed, ETA 206min
+    [744/960] mech_md75_ppon_r05 seed=4562 impact=+0.0824 ok | 128.0min elapsed, ETA 203min
+    [745/960] mech_md75_ppon_r05 seed=4014 impact=+0.0402 ok | 129.3min elapsed, ETA 203min
+    [746/960] mech_md75_ppon_r05 seed=4699 impact=-0.1098 ok | 130.4min elapsed, ETA 202min
+    [747/960] mech_md75_ppon_r05 seed=4425 impact=-0.1149 EXT | 130.4min elapsed, ETA 200min
+    [748/960] mech_md75_ppon_r05 seed=4151 impact=+0.0300 ok | 130.9min elapsed, ETA 198min
+    [749/960] mech_md75_ppon_r10 seed=1137 impact=-0.0865 ok | 131.4min elapsed, ETA 197min
+    [750/960] mech_md75_ppon_r10 seed=1000 impact=+0.0723 ok | 132.5min elapsed, ETA 196min
+    [751/960] mech_md75_ppon_r10 seed=1274 impact=+0.1239 ok | 132.8min elapsed, ETA 194min
+    [752/960] mech_md75_ppon_r05 seed=4973 impact=+0.0223 ok | 133.0min elapsed, ETA 192min
+    [753/960] mech_md75_ppon_r10 seed=1411 impact=+0.0052 ok | 133.7min elapsed, ETA 191min
+    [754/960] mech_md75_ppon_r05 seed=4836 impact=+0.1093 ok | 133.8min elapsed, ETA 189min
+    [755/960] mech_md75_ppon_r10 seed=1685 impact=+0.0111 ok | 134.2min elapsed, ETA 187min
+    [756/960] mech_md75_ppon_r10 seed=1548 impact=-0.0927 EXT | 134.6min elapsed, ETA 186min
+    [757/960] mech_md75_ppon_r10 seed=1822 impact=+0.0400 ok | 140.0min elapsed, ETA 191min
+    [758/960] mech_md75_ppon_r10 seed=2644 impact=-0.0673 EXT | 142.1min elapsed, ETA 191min
+    [759/960] mech_md75_ppon_r10 seed=2233 impact=+0.0485 EXT | 142.3min elapsed, ETA 189min
+    [760/960] mech_md75_ppon_r10 seed=1959 impact=-0.0041 ok | 142.5min elapsed, ETA 188min
+    [761/960] mech_md75_ppon_r10 seed=2370 impact=+0.0161 ok | 142.9min elapsed, ETA 186min
+    [762/960] mech_md75_ppon_r10 seed=2096 impact=-0.0131 ok | 143.0min elapsed, ETA 184min
+    [763/960] mech_md75_ppon_r10 seed=2781 impact=-0.0452 ok | 143.4min elapsed, ETA 182min
+    [764/960] mech_md75_ppon_r10 seed=2507 impact=-0.1869 EXT | 143.8min elapsed, ETA 181min
+    [765/960] mech_md75_ppon_r10 seed=3192 impact=+0.0574 ok | 144.3min elapsed, ETA 179min
+    [766/960] mech_md75_ppon_r10 seed=2918 impact=+0.0898 ok | 145.1min elapsed, ETA 178min
+    [767/960] mech_md75_ppon_r10 seed=3329 impact=-0.1286 EXT | 146.5min elapsed, ETA 178min
+    [768/960] mech_md75_ppon_r10 seed=3466 impact=+0.0801 ok | 146.5min elapsed, ETA 176min
+    [769/960] mech_md75_ppon_r10 seed=3055 impact=+0.0914 EXT | 146.8min elapsed, ETA 174min
+    [770/960] mech_md75_ppon_r10 seed=3877 impact=+0.0958 ok | 148.4min elapsed, ETA 174min
+    [771/960] mech_md75_ppon_r10 seed=3603 impact=-0.1712 EXT | 148.6min elapsed, ETA 172min
+    [772/960] mech_md75_ppon_r10 seed=3740 impact=-0.1234 ok | 148.8min elapsed, ETA 171min
+    [773/960] mech_md75_ppon_r10 seed=4288 impact=-0.0101 ok | 150.1min elapsed, ETA 170min
+    [774/960] mech_md75_ppon_r10 seed=4562 impact=-0.0249 ok | 150.6min elapsed, ETA 169min
+    [775/960] mech_md75_ppon_r10 seed=4151 impact=+0.0681 ok | 150.8min elapsed, ETA 167min
+    [776/960] mech_md75_ppon_r10 seed=4014 impact=+0.0062 ok | 150.9min elapsed, ETA 165min
+    [777/960] mech_md75_ppon_r10 seed=4699 impact=-0.0630 ok | 151.3min elapsed, ETA 164min
+    [778/960] mech_md75_ppon_r10 seed=4425 impact=+0.0306 ok | 151.8min elapsed, ETA 163min
+    [779/960] mech_md75_ppon_r20 seed=1137 impact=-0.0709 ok | 154.4min elapsed, ETA 163min
+    [780/960] mech_md75_ppon_r20 seed=1411 impact=+0.0495 ok | 155.0min elapsed, ETA 162min
+    [781/960] mech_md75_ppon_r20 seed=1274 impact=+0.0849 ok | 155.0min elapsed, ETA 160min
+    [782/960] mech_md75_ppon_r10 seed=4973 impact=-0.0199 ok | 155.0min elapsed, ETA 159min
+    [783/960] mech_md75_ppon_r20 seed=1548 impact=-0.0163 ok | 155.6min elapsed, ETA 157min
+    [784/960] mech_md75_ppon_r20 seed=1000 impact=+0.0326 ok | 156.0min elapsed, ETA 156min
+    [785/960] mech_md75_ppon_r10 seed=4836 impact=+0.0189 ok | 157.1min elapsed, ETA 155min
+    [786/960] mech_md75_ppon_r20 seed=1685 impact=-0.0103 ok | 157.5min elapsed, ETA 154min
+    [787/960] mech_md75_ppon_r20 seed=2096 impact=-0.0383 ok | 157.8min elapsed, ETA 153min
+    [788/960] mech_md75_ppon_r20 seed=1959 impact=+0.0129 ok | 159.0min elapsed, ETA 152min
+    [789/960] mech_md75_ppon_r20 seed=1822 impact=+0.0226 ok | 159.3min elapsed, ETA 151min
+    [790/960] mech_md75_ppon_r20 seed=2644 impact=+0.0192 ok | 160.0min elapsed, ETA 149min
+    [791/960] mech_md75_ppon_r20 seed=2233 impact=+0.1235 ok | 160.5min elapsed, ETA 148min
+    [792/960] mech_md75_ppon_r20 seed=2507 impact=-0.0685 ok | 161.2min elapsed, ETA 147min
+    [793/960] mech_md75_ppon_r20 seed=2370 impact=-0.0067 ok | 161.6min elapsed, ETA 146min
+    [794/960] mech_md75_ppon_r20 seed=2781 impact=-0.1244 ok | 162.8min elapsed, ETA 145min
+    [795/960] mech_md75_ppon_r20 seed=3329 impact=+0.0147 ok | 163.3min elapsed, ETA 144min
+    [796/960] mech_md75_ppon_r20 seed=2918 impact=+0.0396 ok | 163.4min elapsed, ETA 143min
+    [797/960] mech_md75_ppon_r20 seed=3192 impact=+0.1328 ok | 164.7min elapsed, ETA 142min
+    [798/960] mech_md75_ppon_r20 seed=3466 impact=+0.0648 ok | 164.9min elapsed, ETA 141min
+    [799/960] mech_md75_ppon_r20 seed=3055 impact=+0.2087 ok | 164.9min elapsed, ETA 139min
+    [800/960] mech_md75_ppon_r20 seed=3603 impact=-0.0547 ok | 165.7min elapsed, ETA 138min
+    [801/960] mech_md75_ppon_r20 seed=3877 impact=-0.2484 EXT | 165.8min elapsed, ETA 137min
+    [802/960] mech_md75_ppon_r20 seed=3740 impact=-0.0699 ok | 167.4min elapsed, ETA 136min
+    [803/960] mech_md75_ppon_r20 seed=4288 impact=-0.0399 ok | 167.6min elapsed, ETA 135min
+    [804/960] mech_md75_ppon_r20 seed=4151 impact=+0.0634 ok | 167.7min elapsed, ETA 133min
+    [805/960] mech_md75_ppon_r20 seed=4562 impact=+0.0237 ok | 212.7min elapsed, ETA 167min
+    [806/960] mech_md75_ppon_r20 seed=4014 impact=-0.0060 ok | 212.9min elapsed, ETA 166min
+    [807/960] mech_md75_ppon_r20 seed=4699 impact=-0.0562 ok | 213.7min elapsed, ETA 164min
+    [808/960] mech_md75_ppon_r20 seed=4425 impact=+0.0034 ok | 213.9min elapsed, ETA 163min
+    [809/960] mech_md75_ppon_r20 seed=4836 impact=+0.1140 ok | 214.4min elapsed, ETA 161min
+    [810/960] mech_md75_ppon_r30 seed=1137 impact=-0.0426 ok | 215.1min elapsed, ETA 160min
+    [811/960] mech_md75_ppon_r30 seed=1000 impact=+0.0450 ok | 215.9min elapsed, ETA 158min
+    [812/960] mech_md75_ppon_r30 seed=1274 impact=+0.1066 ok | 216.8min elapsed, ETA 157min
+    [813/960] mech_md75_ppon_r30 seed=1411 impact=+0.1306 ok | 216.9min elapsed, ETA 156min
+    [814/960] mech_md75_ppon_r30 seed=1822 impact=+0.0596 ok | 218.3min elapsed, ETA 155min
+    [815/960] mech_md75_ppon_r30 seed=1548 impact=-0.0260 ok | 218.7min elapsed, ETA 153min
+    [816/960] mech_md75_ppon_r20 seed=4973 impact=+0.0453 ok | 218.7min elapsed, ETA 151min
+    [817/960] mech_md75_ppon_r30 seed=2096 impact=-0.0016 ok | 219.6min elapsed, ETA 150min
+    [818/960] mech_md75_ppon_r30 seed=1685 impact=-0.0063 ok | 220.4min elapsed, ETA 149min
+    [819/960] mech_md75_ppon_r30 seed=2507 impact=-0.0491 ok | 221.1min elapsed, ETA 148min
+    [820/960] mech_md75_ppon_r30 seed=1959 impact=-0.0669 ok | 221.2min elapsed, ETA 146min
+    [821/960] mech_md75_ppon_r30 seed=2644 impact=+0.0362 ok | 221.5min elapsed, ETA 145min
+    [822/960] mech_md75_ppon_r30 seed=2370 impact=+0.0376 ok | 221.7min elapsed, ETA 143min
+    [823/960] mech_md75_ppon_r30 seed=2781 impact=-0.0504 ok | 222.8min elapsed, ETA 142min
+    [824/960] mech_md75_ppon_r30 seed=2233 impact=+0.1147 ok | 222.9min elapsed, ETA 140min
+    [825/960] mech_md75_ppon_r30 seed=2918 impact=+0.0510 ok | 224.2min elapsed, ETA 139min
+    [826/960] mech_md75_ppon_r30 seed=3055 impact=+0.1812 ok | 225.2min elapsed, ETA 138min
+    [827/960] mech_md75_ppon_r30 seed=3466 impact=+0.1041 ok | 226.7min elapsed, ETA 138min
+    [828/960] mech_md75_ppon_r30 seed=3329 impact=+0.0322 ok | 226.9min elapsed, ETA 136min
+    [829/960] mech_md75_ppon_r30 seed=3192 impact=+0.0476 ok | 227.1min elapsed, ETA 135min
+    [830/960] mech_md75_ppon_r30 seed=3877 impact=-0.0292 ok | 227.8min elapsed, ETA 133min
+    [831/960] mech_md75_ppon_r30 seed=3740 impact=-0.1111 ok | 228.3min elapsed, ETA 132min
+    [832/960] mech_md75_ppon_r30 seed=4151 impact=+0.0461 ok | 229.1min elapsed, ETA 131min
+    [833/960] mech_md75_ppon_r30 seed=4014 impact=-0.2358 EXT | 229.3min elapsed, ETA 129min
+    [834/960] mech_md75_ppon_r30 seed=4288 impact=-0.0437 ok | 230.0min elapsed, ETA 128min
+    [835/960] mech_md75_ppon_r30 seed=4562 impact=+0.0467 ok | 230.8min elapsed, ETA 127min
+    [836/960] mech_md75_ppon_r30 seed=3603 impact=-0.1411 ok | 231.7min elapsed, ETA 126min
+    [837/960] mech_md75_ppon_r30 seed=4699 impact=+0.0013 ok | 232.7min elapsed, ETA 125min
+    [838/960] mech_md75_ppoff_r05 seed=1137 impact=-0.1129 EXT | 233.1min elapsed, ETA 124min
+    [839/960] mech_md75_ppon_r30 seed=4425 impact=+0.0043 ok | 233.6min elapsed, ETA 122min
+    [840/960] mech_md75_ppon_r30 seed=4836 impact=+0.0585 ok | 234.3min elapsed, ETA 121min
+    [841/960] mech_md75_ppoff_r05 seed=1411 impact=+0.1612 ok | 234.4min elapsed, ETA 120min
+    [842/960] mech_md75_ppoff_r05 seed=1274 impact=+0.0550 EXT | 235.0min elapsed, ETA 118min
+    [843/960] mech_md75_ppoff_r05 seed=1000 impact=+0.1495 ok | 235.7min elapsed, ETA 117min
+    [844/960] mech_md75_ppoff_r05 seed=1685 impact=-0.1139 EXT | 236.4min elapsed, ETA 116min
+    [845/960] mech_md75_ppoff_r05 seed=1548 impact=-0.0532 ok | 236.9min elapsed, ETA 115min
+    [846/960] mech_md75_ppoff_r05 seed=1822 impact=+0.1339 ok | 237.3min elapsed, ETA 114min
+    [847/960] mech_md75_ppoff_r05 seed=2096 impact=-0.1452 EXT | 238.8min elapsed, ETA 113min
+    [848/960] mech_md75_ppon_r30 seed=4973 impact=+0.0156 ok | 239.6min elapsed, ETA 112min
+    [849/960] mech_md75_ppoff_r05 seed=2644 impact=-0.0127 EXT | 240.1min elapsed, ETA 111min
+    [850/960] mech_md75_ppoff_r05 seed=2233 impact=+0.0637 ok | 240.8min elapsed, ETA 109min
+    [851/960] mech_md75_ppoff_r05 seed=2507 impact=-0.0726 ok | 240.8min elapsed, ETA 108min
+    [852/960] mech_md75_ppoff_r05 seed=2781 impact=-0.0305 ok | 241.6min elapsed, ETA 107min
+    [853/960] mech_md75_ppoff_r05 seed=3192 impact=+0.0198 EXT | 243.0min elapsed, ETA 106min
+    [854/960] mech_md75_ppoff_r05 seed=1959 impact=-0.0142 ok | 243.5min elapsed, ETA 105min
+    [855/960] mech_md75_ppoff_r05 seed=3329 impact=-0.0667 EXT | 243.9min elapsed, ETA 104min
+    [856/960] mech_md75_ppoff_r05 seed=3055 impact=+0.1516 ok | 244.7min elapsed, ETA 103min
+    [857/960] mech_md75_ppoff_r05 seed=2370 impact=+0.0019 ok | 245.1min elapsed, ETA 101min
+    [858/960] mech_md75_ppoff_r05 seed=2918 impact=+0.1132 ok | 246.2min elapsed, ETA 100min
+    [859/960] mech_md75_ppoff_r05 seed=3877 impact=-0.2037 EXT | 246.8min elapsed, ETA 99min
+    [860/960] mech_md75_ppoff_r05 seed=3466 impact=+0.0265 ok | 247.1min elapsed, ETA 98min
+    [861/960] mech_md75_ppoff_r05 seed=3740 impact=-0.0880 ok | 247.4min elapsed, ETA 97min
+    [862/960] mech_md75_ppoff_r05 seed=3603 impact=-0.1054 ok | 247.6min elapsed, ETA 96min
+    [863/960] mech_md75_ppoff_r05 seed=4151 impact=+0.0643 ok | 248.9min elapsed, ETA 95min
+    [864/960] mech_md75_ppoff_r05 seed=4288 impact=-0.1318 EXT | 248.9min elapsed, ETA 93min
+    [865/960] mech_md75_ppoff_r05 seed=4562 impact=-0.0461 EXT | 249.4min elapsed, ETA 92min
+    [866/960] mech_md75_ppoff_r05 seed=4836 impact=+0.1443 ok | 251.6min elapsed, ETA 92min
+    [867/960] mech_md75_ppoff_r05 seed=4425 impact=+0.0169 ok | 252.5min elapsed, ETA 91min
+    [868/960] mech_md75_ppoff_r10 seed=1137 impact=+0.0496 ok | 252.7min elapsed, ETA 89min
+    [869/960] mech_md75_ppoff_r05 seed=4014 impact=+0.0510 ok | 253.0min elapsed, ETA 88min
+    [870/960] mech_md75_ppoff_r10 seed=1411 impact=+0.0677 ok | 253.2min elapsed, ETA 87min
+    [871/960] mech_md75_ppoff_r10 seed=1274 impact=+0.1611 ok | 253.8min elapsed, ETA 86min
+    [872/960] mech_md75_ppoff_r10 seed=1000 impact=+0.1270 ok | 254.0min elapsed, ETA 85min
+    [873/960] mech_md75_ppoff_r10 seed=1548 impact=-0.2690 EXT | 254.7min elapsed, ETA 84min
+    [874/960] mech_md75_ppoff_r05 seed=4699 impact=-0.0931 ok | 254.8min elapsed, ETA 82min
+    [875/960] mech_md75_ppoff_r10 seed=1685 impact=-0.0703 EXT | 254.9min elapsed, ETA 81min
+    [876/960] mech_md75_ppoff_r10 seed=1822 impact=-0.1059 EXT | 255.6min elapsed, ETA 80min
+    [877/960] mech_md75_ppoff_r10 seed=1959 impact=-0.1212 EXT | 258.7min elapsed, ETA 80min
+    [878/960] mech_md75_ppoff_r05 seed=4973 impact=+0.0022 ok | 259.0min elapsed, ETA 79min
+    [879/960] mech_md75_ppoff_r10 seed=2233 impact=+0.1388 ok | 259.3min elapsed, ETA 78min
+    [880/960] mech_md75_ppoff_r10 seed=2507 impact=-0.1860 EXT | 259.5min elapsed, ETA 76min
+    [881/960] mech_md75_ppoff_r10 seed=2781 impact=-0.0416 ok | 259.7min elapsed, ETA 75min
+    [882/960] mech_md75_ppoff_r10 seed=2644 impact=+0.1108 ok | 259.9min elapsed, ETA 74min
+    [883/960] mech_md75_ppoff_r10 seed=2096 impact=+0.0292 ok | 260.6min elapsed, ETA 73min
+    [884/960] mech_md75_ppoff_r10 seed=3192 impact=-0.1446 EXT | 261.1min elapsed, ETA 72min
+    [885/960] mech_md75_ppoff_r10 seed=3329 impact=-0.6223 EXT | 261.3min elapsed, ETA 71min
+    [886/960] mech_md75_ppoff_r10 seed=2918 impact=-0.0326 EXT | 261.9min elapsed, ETA 70min
+    [887/960] mech_md75_ppoff_r10 seed=2370 impact=-0.0039 ok | 263.2min elapsed, ETA 69min
+    [888/960] mech_md75_ppoff_r10 seed=3055 impact=+0.2591 ok | 263.8min elapsed, ETA 68min
+    [889/960] mech_md75_ppoff_r10 seed=3740 impact=-0.2010 EXT | 265.9min elapsed, ETA 67min
+    [890/960] mech_md75_ppoff_r10 seed=3466 impact=+0.1344 ok | 266.2min elapsed, ETA 66min
+    [891/960] mech_md75_ppoff_r10 seed=3877 impact=-0.0681 EXT | 266.2min elapsed, ETA 65min
+    [892/960] mech_md75_ppoff_r10 seed=3603 impact=-0.0584 ok | 266.4min elapsed, ETA 64min
+    [893/960] mech_md75_ppoff_r10 seed=4425 impact=-0.1941 EXT | 268.1min elapsed, ETA 63min
+    [894/960] mech_md75_ppoff_r10 seed=4562 impact=+0.0737 ok | 268.9min elapsed, ETA 62min
+    [895/960] mech_md75_ppoff_r10 seed=4014 impact=+0.0113 ok | 269.2min elapsed, ETA 61min
+    [896/960] mech_md75_ppoff_r10 seed=4151 impact=+0.0609 ok | 269.8min elapsed, ETA 60min
+    [897/960] mech_md75_ppoff_r10 seed=4699 impact=-0.0309 ok | 270.0min elapsed, ETA 59min
+    [898/960] mech_md75_ppoff_r10 seed=4288 impact=+0.0044 ok | 270.7min elapsed, ETA 58min
+    [899/960] mech_md75_ppoff_r20 seed=1411 impact=+0.1606 ok | 273.3min elapsed, ETA 57min
+    [900/960] mech_md75_ppoff_r10 seed=4836 impact=+0.0955 ok | 273.5min elapsed, ETA 56min
+    [901/960] mech_md75_ppoff_r20 seed=1137 impact=-0.0133 ok | 273.5min elapsed, ETA 55min
+    [902/960] mech_md75_ppoff_r20 seed=1274 impact=+0.0831 ok | 344.7min elapsed, ETA 68min
+    [903/960] mech_md75_ppoff_r20 seed=1000 impact=+0.0732 ok | 344.7min elapsed, ETA 67min
+    [904/960] mech_md75_ppoff_r20 seed=1548 impact=+0.0061 ok | 345.4min elapsed, ETA 65min
+    [905/960] mech_md75_ppoff_r20 seed=1822 impact=+0.0311 ok | 346.6min elapsed, ETA 64min
+    [906/960] mech_md75_ppoff_r20 seed=2096 impact=-0.0596 ok | 346.7min elapsed, ETA 63min
+    [907/960] mech_md75_ppoff_r10 seed=4973 impact=+0.0379 ok | 346.8min elapsed, ETA 61min
+    [908/960] mech_md75_ppoff_r20 seed=1685 impact=+0.0093 ok | 347.6min elapsed, ETA 60min
+    [909/960] mech_md75_ppoff_r20 seed=1959 impact=-0.2139 EXT | 349.2min elapsed, ETA 59min
+    [910/960] mech_md75_ppoff_r20 seed=2233 impact=+0.0272 EXT | 350.5min elapsed, ETA 58min
+    [911/960] mech_md75_ppoff_r20 seed=2644 impact=+0.1156 ok | 351.1min elapsed, ETA 57min
+    [912/960] mech_md75_ppoff_r20 seed=2781 impact=-0.1053 ok | 351.5min elapsed, ETA 55min
+    [913/960] mech_md75_ppoff_r20 seed=2370 impact=+0.0015 ok | 351.7min elapsed, ETA 54min
+    [914/960] mech_md75_ppoff_r20 seed=2918 impact=-0.0451 EXT | 352.4min elapsed, ETA 53min
+    [915/960] mech_md75_ppoff_r20 seed=3055 impact=+0.1937 ok | 352.4min elapsed, ETA 52min
+    [916/960] mech_md75_ppoff_r20 seed=2507 impact=-0.0915 ok | 352.6min elapsed, ETA 50min
+    [917/960] mech_md75_ppoff_r20 seed=3329 impact=-0.1203 EXT | 352.7min elapsed, ETA 49min
+    [918/960] mech_md75_ppoff_r20 seed=3466 impact=+0.1079 ok | 354.0min elapsed, ETA 48min
+    [919/960] mech_md75_ppoff_r20 seed=3192 impact=+0.0584 ok | 354.3min elapsed, ETA 47min
+    [920/960] mech_md75_ppoff_r20 seed=3740 impact=-0.0726 ok | 356.9min elapsed, ETA 46min
+    [921/960] mech_md75_ppoff_r20 seed=3603 impact=-0.0726 ok | 357.0min elapsed, ETA 44min
+    [922/960] mech_md75_ppoff_r20 seed=4288 impact=+0.0151 ok | 358.1min elapsed, ETA 43min
+    [923/960] mech_md75_ppoff_r20 seed=4151 impact=+0.1044 ok | 358.7min elapsed, ETA 42min
+    [924/960] mech_md75_ppoff_r20 seed=4425 impact=-0.1994 EXT | 358.7min elapsed, ETA 41min
+    [925/960] mech_md75_ppoff_r20 seed=4836 impact=+0.0816 ok | 359.0min elapsed, ETA 40min
+    [926/960] mech_md75_ppoff_r20 seed=4562 impact=+0.0639 ok | 359.2min elapsed, ETA 38min
+    [927/960] mech_md75_ppoff_r20 seed=3877 impact=-0.2571 EXT | 359.3min elapsed, ETA 37min
+    [928/960] mech_md75_ppoff_r30 seed=1000 impact=+0.0541 ok | 361.5min elapsed, ETA 36min
+    [929/960] mech_md75_ppoff_r30 seed=1137 impact=-0.3032 EXT | 362.1min elapsed, ETA 35min
+    [930/960] mech_md75_ppoff_r20 seed=4014 impact=-0.0128 ok | 362.3min elapsed, ETA 34min
+    [931/960] mech_md75_ppoff_r20 seed=4973 impact=+0.0377 ok | 362.5min elapsed, ETA 33min
+    [932/960] mech_md75_ppoff_r20 seed=4699 impact=-0.0445 ok | 363.5min elapsed, ETA 31min
+    [933/960] mech_md75_ppoff_r30 seed=1548 impact=+0.0196 ok | 364.2min elapsed, ETA 30min
+    [934/960] mech_md75_ppoff_r30 seed=1411 impact=+0.0606 ok | 364.4min elapsed, ETA 29min
+    [935/960] mech_md75_ppoff_r30 seed=1822 impact=+0.0279 ok | 365.5min elapsed, ETA 28min
+    [936/960] mech_md75_ppoff_r30 seed=1685 impact=+0.0237 ok | 365.9min elapsed, ETA 27min
+    [937/960] mech_md75_ppoff_r30 seed=1274 impact=+0.0930 ok | 367.3min elapsed, ETA 26min
+    [938/960] mech_md75_ppoff_r30 seed=2096 impact=-0.0614 ok | 368.2min elapsed, ETA 25min
+    [939/960] mech_md75_ppoff_r30 seed=2233 impact=+0.1700 ok | 368.3min elapsed, ETA 23min
+    [940/960] mech_md75_ppoff_r30 seed=1959 impact=-0.0409 ok | 368.9min elapsed, ETA 22min
+    [941/960] mech_md75_ppoff_r30 seed=2644 impact=+0.0832 ok | 368.9min elapsed, ETA 21min
+    [942/960] mech_md75_ppoff_r30 seed=2370 impact=-0.0415 ok | 370.5min elapsed, ETA 20min
+    [943/960] mech_md75_ppoff_r30 seed=2507 impact=-0.0424 ok | 371.5min elapsed, ETA 19min
+    [944/960] mech_md75_ppoff_r30 seed=3055 impact=+0.1270 ok | 371.6min elapsed, ETA 18min
+    [945/960] mech_md75_ppoff_r30 seed=3192 impact=+0.0693 ok | 372.0min elapsed, ETA 17min
+    [946/960] mech_md75_ppoff_r30 seed=2781 impact=-0.0776 ok | 372.1min elapsed, ETA 15min
+    [947/960] mech_md75_ppoff_r30 seed=3329 impact=-0.0142 ok | 372.3min elapsed, ETA 14min
+    [948/960] mech_md75_ppoff_r30 seed=2918 impact=+0.0709 ok | 372.5min elapsed, ETA 13min
+    [949/960] mech_md75_ppoff_r30 seed=3877 impact=+0.0265 ok | 375.8min elapsed, ETA 12min
+    [950/960] mech_md75_ppoff_r30 seed=3740 impact=-0.1268 ok | 375.9min elapsed, ETA 11min
+    [951/960] mech_md75_ppoff_r30 seed=3466 impact=+0.0972 ok | 377.7min elapsed, ETA 10min
+    [952/960] mech_md75_ppoff_r30 seed=3603 impact=-0.0414 ok | 378.0min elapsed, ETA 9min
+    [953/960] mech_md75_ppoff_r30 seed=4151 impact=+0.0485 ok | 475.9min elapsed, ETA 10min
+    [954/960] mech_md75_ppoff_r30 seed=4014 impact=+0.0500 ok | 476.2min elapsed, ETA 8min
+    [955/960] mech_md75_ppoff_r30 seed=4425 impact=-0.0038 ok | 476.4min elapsed, ETA 7min
+    [956/960] mech_md75_ppoff_r30 seed=4562 impact=+0.0689 ok | 476.6min elapsed, ETA 5min
+    [957/960] mech_md75_ppoff_r30 seed=4836 impact=+0.0938 ok | 477.1min elapsed, ETA 4min
+    [958/960] mech_md75_ppoff_r30 seed=4288 impact=-0.0968 ok | 477.3min elapsed, ETA 3min
+    [959/960] mech_md75_ppoff_r30 seed=4699 impact=-0.0266 ok | 477.5min elapsed, ETA 1min
+    [960/960] mech_md75_ppoff_r30 seed=4973 impact=+0.0069 ok | 477.9min elapsed, ETA 0min
+[*] Sweep done in 477.9 min
+[*] Assembling analysis from 960 checkpointed runs
+[*] Control extinction inside factorial: 33.3% (10/30 seeds)
+[*] BatchLogger raw export...
+[*] Two-way ANOVA @30%:
+      metabolism_discount: F=2.6134, p=0.051998, eta2=0.0327
+      predator_protection: F=0.0295, p=0.863808, eta2=0.0001
+      metabolism_discount:predator_protection: F=0.0131, p=0.997942, eta2=0.0002
+[*] Two-way ANOVA pooled:
+      metabolism_discount: F=2.4676, p=0.06078, eta2=0.0077
+      predator_protection: F=0.226, p=0.634627, eta2=0.0002
+      metabolism_discount:predator_protection: F=0.4971, p=0.684372, eta2=0.0016
+[*] Figures: ['data/results/phase1/mechanism/figures/mechanism_phase_diagram.png', 'data/results/phase1/mechanism/figures/mechanism_dose_response.png']
+[*] Done. Output in data/results/phase1/mechanism/
+[*] Mechanism factorial (checkpointed)
+    config      : configs/calibrated.yaml (energy_value=50)
+    conditions  : 32 (8 cells x 4 ratios)
+    seeds       : 30  gen x steps: 5 x 1000
+    total runs  : 960
+    checkpoint  : data/results/phase1/mechanism/checkpoint.jsonl
+    already done: 960 runs (resuming)
+    remaining   : 0 runs
+[*] Nothing to run; all runs already in checkpoint.
+[*] Assembling analysis from 960 checkpointed runs
+[*] Control extinction inside factorial: 33.3% (10/30 seeds)
+[*] BatchLogger raw export...
+[*] Two-way ANOVA @30%:
+      metabolism_discount: F=2.6134, p=0.051998, eta2=0.0327
+      predator_protection: F=0.0295, p=0.863808, eta2=0.0001
+      metabolism_discount:predator_protection: F=0.0131, p=0.997942, eta2=0.0002
+[*] Two-way ANOVA pooled:
+      metabolism_discount: F=2.4676, p=0.06078, eta2=0.0077
+      predator_protection: F=0.226, p=0.634627, eta2=0.0002
+      metabolism_discount:predator_protection: F=0.4971, p=0.684372, eta2=0.0016
+[*] Figures: ['data/results/phase1/mechanism/figures/mechanism_phase_diagram.png', 'data/results/phase1/mechanism/figures/mechanism_dose_response.png']
+[*] Done. Output in data/results/phase1/mechanism/
