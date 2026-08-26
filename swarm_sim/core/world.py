@@ -205,6 +205,19 @@ class World:
                 "avg_age": 0, "avg_distance_between_agents": 0,
             })
 
+        # Local food availability: mean number of food cells within each
+        # foraging agent's sensor_range this step. Reuses the observations
+        # already fetched in the observe->decide->act loop above (no new spatial
+        # queries) — an O(n) aggregation over agents' retained last observation.
+        nearby_food = [
+            len(a._last_observation["food_positions"])
+            for a in living
+            if getattr(a, "_last_observation", None) is not None
+        ]
+        metrics["local_food_mean"] = (
+            round(float(np.mean(nearby_food)), 3) if nearby_food else 0.0
+        )
+
         self.step_history.append(metrics)
         return metrics
 
