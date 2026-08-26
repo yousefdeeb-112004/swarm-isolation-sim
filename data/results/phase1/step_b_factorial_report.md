@@ -116,11 +116,48 @@ Positive _d_ = paradox (isolation helps). Bold rows are significant at α = 0.05
 | 0.75 | OFF | 0.20 | 0.5705 | 0.5659 | −0.0046 | −0.060 | 0.8173 | no |
 | 0.75 | OFF | 0.30 | 0.5705 | 0.5810 | +0.0105 | +0.166 | 0.5221 | no |
 
-Six of 32 cells are individually significant at α = 0.05 (no multiplicity
-correction applied). All six are at high dose (ratio ≥ 0.20) and low metabolism
-discount (md ≤ 0.25) — and, decisively, they include **both** the harshest cell
-(md 0.0 / OFF) and its predator-protected twin. The paradox concentrates where the
-swarm pays the *full* cost of isolation, not where it is shielded.
+Five of 32 cells are individually significant at the raw (uncorrected) α = 0.05.
+All five are at high dose (ratio ≥ 0.20) and low metabolism discount (md ≤ 0.25) —
+and, decisively, they include **both** the harshest cell (md 0.0 / OFF) and its
+predator-protected twin. The paradox concentrates where the swarm pays the *full*
+cost of isolation, not where it is shielded. Multiplicity across the 32-test family
+is corrected next.
+
+### Multiplicity correction across the 32 per-cell tests
+
+The 32 per-cell control-vs-treatment _t_-tests are one exploratory family, so the
+raw per-cell _p_-values above are uncorrected. Two corrections were applied across
+the full family of 32 (see `mechanism/stats/mechanism_analysis.json → multiplicity`
+and the `bh_adjusted_p` / `bh_reject_fdr005` columns in `mechanism_cells.csv`):
+
+- **Benjamini–Hochberg FDR (_q_ = 0.05)** — the appropriate correction for an
+  exploratory factorial. **Four cells survive**, all four at the top (30%) dose and
+  low discount (≤ 0.25):
+
+  | md | pp | ratio | raw _p_ | BH-adj _p_ | survives FDR |
+  |----|----|-------|---------|-----------|--------------|
+  | 0.0  | OFF | 0.30 | 0.00186 | 0.0399 | **yes** |
+  | 0.25 | OFF | 0.30 | 0.00426 | 0.0399 | **yes** |
+  | 0.25 | ON  | 0.30 | 0.00434 | 0.0399 | **yes** |
+  | 0.0  | ON  | 0.30 | 0.00499 | 0.0399 | **yes** |
+  | 0.0  | ON  | 0.20 | 0.04826 | 0.2782 | no |
+
+  The four survivors share a BH-adjusted _p_ = 0.0399 (the step-up procedure pulls
+  ties to the running minimum); the FDR rejection threshold is the largest rejected
+  raw _p_, 0.00499. The remaining 27 cells have BH-adjusted _p_ ≥ 0.28. The one
+  raw-significant cell that does **not** survive FDR is the 20%-dose md 0.0/ON cell
+  (raw _p_ = 0.048 → BH-adj 0.278); every 30%-dose low-discount cell — including the
+  harshest md 0.0/OFF cell — does survive.
+
+- **Bonferroni (family-wise, α = 0.05/32 ≈ 0.00156)** — far stricter and reported
+  for contrast. **No cell survives**; the harshest cell is closest (raw
+  _p_ = 0.00186, just above the threshold). Under a narrower eight-cell focus-dose
+  family (α = 0.05/8 ≈ 0.00625) the four low-discount 30% cells (raw _p_ =
+  0.0019–0.0050) all clear.
+
+Neither correction overturns the Step-B conclusion: after FDR the paradox remains
+significant in exactly the cells the two-way ANOVA and the monotone dose-response
+already flag — high dose, low subsidy — with the harshest cell among the survivors.
 
 ---
 
@@ -308,23 +345,34 @@ figure is not meaningful and `metadata.elapsed_seconds` in
 
 ## 9. Limitations / follow-ups
 
-1. **Density-relief remains untested (data gap).** The direct mechanistic test in
-   §4 could not be run because per-step population and standing-food trajectories
-   were not persisted. **Follow-up:** persist `ctrl_step_metrics` /
-   `treat_step_metrics` (specifically per-step `agents_alive` and environment
-   `total_food`) — they are already computed in `ExtendedExperiment.run` and
-   dropped by `_compile_results` — then re-run a small subset (e.g. the harshest
-   cell across seeds) to compare in-window vs post-window density and food,
-   treatment vs control.
-2. **No multiplicity correction** is applied to the 32 per-cell _t_-tests; the
-   two-way ANOVA is the confirmatory test and the per-cell _p_-values are
-   descriptive. Under a strict 32-test Bonferroni threshold (0.05/32 ≈ 0.0016)
-   **none** of the per-cell tests survive — the harshest cell is the closest
-   (_p_ = 0.0019, just above). Under a narrower family of the eight focus-dose
-   (30%) cells (0.05/8 ≈ 0.00625), the four low-discount "holds" cells
-   (_p_ = 0.0019–0.0050) all survive. Either way, the robust result is the
-   *pattern* — six significant cells, all at high dose and low discount, with a
-   monotone dose-response — not any single cell.
+1. **Density-relief: untested within this factorial; tested in Step C.** The direct
+   mechanistic test in §4 could not be run from the factorial's outputs because
+   per-step population and standing-food trajectories were not persisted (they are
+   computed in `ExtendedExperiment.run` and were dropped by `_compile_results`).
+   That gap is now closed: `_compile_results` persists the downsampled per-step
+   `agents_alive`, `total_food`, and `avg_energy` series, and the harshest cell
+   (md 0.0 / OFF, 30%) was re-run at 30 seeds to test density relief directly. See
+   **`step_c_mechanism_test.md`** for the result.
+2. **Multiplicity — the confirmatory ANOVA vs. the exploratory per-cell tests.**
+   Two distinct claims are on the table, and each has its own appropriate test:
+   - *Confirmatory (mechanism question, §3):* the pre-specified two-way ANOVA of
+     fitness impact on the two mechanism factors is a single structured model and
+     needs no multiplicity correction. Its verdict stands — both main effects
+     weak/null (predator protection _p_ = 0.86; metabolism discount _p_ = 0.052 and
+     directionally "wrong") — so the paradox is **not** an artifact of the two
+     protective mechanisms.
+   - *Exploratory (localization, §2):* the 32 per-cell _t_-tests locate *where* the
+     paradox is significant and form one exploratory family. The appropriate
+     correction is **Benjamini–Hochberg FDR (_q_ = 0.05)**, under which **four cells
+     survive** — the four high-dose (30%), low-discount (≤ 0.25) "holds" cells,
+     including the harshest md 0.0/OFF cell (BH-adjusted _p_ = 0.0399 for all four).
+     A strict 32-test **Bonferroni** threshold (0.05/32 ≈ 0.00156) is more
+     conservative than FDR warrants for exploration and is reported only for
+     contrast: **no** cell survives it, though the harshest is closest (raw
+     _p_ = 0.00186). Stated honestly, both outcomes point the same way — the robust
+     signal is the high-dose/low-discount *pattern* the ANOVA and dose-response
+     independently flag, not any single cell — and neither correction changes the
+     mechanism conclusion. Full per-cell raw and BH-adjusted _p_-values are in §2.
 3. **Pre-existing broken pytest suite** (unrelated to Phase 1): `tests/conftest.py`
    defines only `make_small_config()`, not the `@pytest.fixture`s the tests
    reference, yielding 32 collection errors. Logged in Step A; still deferred — not

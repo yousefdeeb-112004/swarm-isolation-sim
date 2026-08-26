@@ -32,6 +32,14 @@ from swarm_sim.core.config import SimulationConfig
 from swarm_sim.core.world import World
 
 
+# Stride (in global steps) for the per-step trajectories persisted by
+# ExtendedExperiment._compile_results. A 5-generation run is up to 5000 steps
+# per world; at a stride of 5 each persisted series holds <=1000 points, which
+# is fine to checkpoint while still resolving the 50-step isolation cadence
+# (two samples per isolation window). See _downsample_step_trajectories.
+STEP_TRAJECTORY_DOWNSAMPLE = 5
+
+
 # ======================================================================
 # 1. ExperimentCondition — describes one parameterized condition
 # ======================================================================
@@ -576,6 +584,71 @@ class ExtendedExperiment:
             # Per-generation records (for downstream analysis)
             "ctrl_gen_records": self.ctrl_gen_records,
             "treat_gen_records": self.treat_gen_records,
+
+            # Downsampled per-step trajectories (agents_alive, standing food,
+            # mean energy, and treatment isolation count). Computed in run() but
+            # previously discarded here; persisted for the density-relief test.
+            "step_trajectories": self._downsample_step_trajectories(),
+        }
+
+    def _downsample_step_trajectories(self) -> Dict[str, Any]:
+        """
+        Persist the per-step trajectories that ``run`` accumulates in
+        ``ctrl_step_metrics`` / ``treat_step_metrics`` but which
+        ``_compile_results`` would otherwise discard.
+
+        Downsampled to every ``STEP_TRAJECTORY_DOWNSAMPLE``-th global step to
+        bound output size; the final recorded step is always appended so the
+        end-of-run state (e.g. extinction) is not clipped. Both worlds are
+        stepped in lockstep, so index ``i`` in either list is global step
+        ``i + 1`` and the two series share the single ``steps`` axis.
+
+        Series persisted (all already computed inside ``World.step``):
+          - ``agents_alive``       : living population.
+          - ``total_food``         : environment standing food stock (the
+                                     "available food" density relief concerns).
+          - ``avg_energy``         : mean energy over ALL living agents. NOTE:
+                                     for treatment this pools isolated and
+                                     non-isolated agents, so it is not a clean
+                                     non-isolated-only signal.
+          - ``currently_isolated`` : treatment only (always 0 in control) —
+                                     agents isolated at that step, used to
+                                     locate the isolation windows.
+        """
+        stride = STEP_TRAJECTORY_DOWNSAMPLE
+        n = min(len(self.ctrl_step_metrics), len(self.treat_step_metrics))
+        empty = {
+            "downsample_every": stride,
+            "steps": [],
+            "ctrl": {"agents_alive": [], "total_food": [], "avg_energy": []},
+            "treat": {"agents_alive": [], "total_food": [], "avg_energy": [],
+                      "currently_isolated": []},
+        }
+        if n == 0:
+            return empty
+
+        idx = list(range(stride - 1, n, stride))
+        if not idx or idx[-1] != n - 1:
+            idx.append(n - 1)  # always keep the final step
+
+        def _series(metrics: List[Dict[str, Any]], key: str) -> List[Any]:
+            return [metrics[i].get(key, 0) for i in idx]
+
+        return {
+            "downsample_every": stride,
+            "steps": [i + 1 for i in idx],
+            "ctrl": {
+                "agents_alive": _series(self.ctrl_step_metrics, "agents_alive"),
+                "total_food": _series(self.ctrl_step_metrics, "total_food"),
+                "avg_energy": _series(self.ctrl_step_metrics, "avg_energy"),
+            },
+            "treat": {
+                "agents_alive": _series(self.treat_step_metrics, "agents_alive"),
+                "total_food": _series(self.treat_step_metrics, "total_food"),
+                "avg_energy": _series(self.treat_step_metrics, "avg_energy"),
+                "currently_isolated": _series(self.treat_step_metrics,
+                                              "currently_isolated"),
+            },
         }
 
 

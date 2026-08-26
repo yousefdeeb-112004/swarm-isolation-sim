@@ -312,6 +312,78 @@ def two_way_anova(
 
 
 # ======================================================================
+# 3c. Multiple-comparison correction (Benjamini–Hochberg FDR)
+# ======================================================================
+
+def benjamini_hochberg(
+    pvalues: List[float],
+    q: float = 0.05,
+) -> Dict[str, Any]:
+    """
+    Benjamini–Hochberg (1995) false-discovery-rate correction.
+
+    Controls the expected proportion of false positives among the rejected
+    hypotheses at level ``q`` — the appropriate correction for an exploratory
+    family of tests (unlike Bonferroni, which controls the family-wise error
+    rate and is far more conservative).
+
+    Parameters
+    ----------
+    pvalues : raw two-sided p-values, in the caller's fixed order.
+    q       : target FDR level (default 0.05).
+
+    Returns a dict with, aligned to the input order:
+      - ``adjusted`` : BH-adjusted p-values (a.k.a. q-values), each the
+                       smallest FDR at which that hypothesis is rejected,
+                       enforced monotone and capped at 1.0.
+      - ``reject``   : bool per test — True iff rejected at level ``q``.
+    plus ``m`` (number of tests), ``q``, ``n_reject``, ``threshold_p`` (the
+    largest raw p-value that is rejected, or None), and ``bonferroni_alpha``
+    (``q / m``, reported for contrast).
+    """
+    m = len(pvalues)
+    if m == 0:
+        return {"m": 0, "q": q, "adjusted": [], "reject": [],
+                "n_reject": 0, "threshold_p": None, "bonferroni_alpha": None}
+
+    # Order indices by ascending p-value.
+    order = sorted(range(m), key=lambda i: pvalues[i])
+    ranked = [pvalues[i] for i in order]
+
+    # Step-up: largest k with p_(k) <= (k/m) * q  (k is 1-based).
+    max_k = 0
+    for k in range(1, m + 1):
+        if ranked[k - 1] <= (k / m) * q:
+            max_k = k
+    threshold_p = ranked[max_k - 1] if max_k > 0 else None
+
+    # BH-adjusted p-values: enforce monotonicity from the largest rank down.
+    adj_ranked = [0.0] * m
+    running_min = 1.0
+    for k in range(m, 0, -1):
+        val = ranked[k - 1] * m / k
+        running_min = min(running_min, val)
+        adj_ranked[k - 1] = min(running_min, 1.0)
+
+    adjusted = [0.0] * m
+    reject = [False] * m
+    for rank, i in enumerate(order, start=1):
+        adjusted[i] = round(float(adj_ranked[rank - 1]), 6)
+        reject[i] = rank <= max_k
+
+    return {
+        "m": m,
+        "q": q,
+        "adjusted": adjusted,
+        "reject": reject,
+        "n_reject": max_k,
+        "threshold_p": (round(float(threshold_p), 6)
+                        if threshold_p is not None else None),
+        "bonferroni_alpha": round(q / m, 8),
+    }
+
+
+# ======================================================================
 # 4. Kaplan–Meier Survival Analysis
 # ======================================================================
 
@@ -767,6 +839,41 @@ def analyze_mechanism_sweep(
             "treat_fitness_mean": round(_safe_np_mean(treat_fits), 6),
         }
 
+    # --- Multiplicity: Benjamini–Hochberg FDR across the 32 per-cell tests ---
+    # The 32 cells (discount x protection x ratio) form one exploratory family;
+    # BH-FDR (q = 0.05) is the appropriate correction for it. Bonferroni's alpha
+    # (q / 32) is reported alongside purely for contrast. Tests are ordered
+    # deterministically by (discount, protection, ratio) so the mapping back to
+    # cells is stable; BH itself is order-independent.
+    fdr_keys = sorted(
+        per_cell_ratio.keys(),
+        key=lambda k: (per_cell_ratio[k]["metabolism_discount"],
+                       not per_cell_ratio[k]["predator_protection"],
+                       per_cell_ratio[k]["isolation_ratio"]),
+    )
+    fdr_pvals = [per_cell_ratio[k]["ttest_p"] for k in fdr_keys]
+    bh = benjamini_hochberg(fdr_pvals, q=0.05)
+    for k, padj, rej in zip(fdr_keys, bh["adjusted"], bh["reject"]):
+        per_cell_ratio[k]["bh_adjusted_p"] = padj
+        per_cell_ratio[k]["bh_reject_fdr005"] = bool(rej)
+    bonf_alpha = bh["bonferroni_alpha"]
+    bonf_survivors = [k for k in fdr_keys
+                      if per_cell_ratio[k]["ttest_p"] < bonf_alpha]
+    fdr_survivors = [k for k, rej in zip(fdr_keys, bh["reject"]) if rej]
+    multiplicity = {
+        "family": "per-cell control-vs-treatment t-tests (all 32 cells)",
+        "n_tests": bh["m"],
+        "n_raw_significant_005": sum(1 for p in fdr_pvals if p < 0.05),
+        "fdr_method": "benjamini_hochberg",
+        "fdr_q": bh["q"],
+        "fdr_threshold_p": bh["threshold_p"],
+        "n_survive_fdr": bh["n_reject"],
+        "fdr_survivors": fdr_survivors,
+        "bonferroni_alpha": bonf_alpha,
+        "n_survive_bonferroni": len(bonf_survivors),
+        "bonferroni_survivors": bonf_survivors,
+    }
+
     # Two-way ANOVA at focus ratio
     cells_focus = {
         (md, pp): [x["fitness_impact"]
@@ -825,6 +932,7 @@ def analyze_mechanism_sweep(
         "ratios": ratios,
         "focus_ratio": focus_ratio,
         "per_cell_ratio": per_cell_ratio,
+        "multiplicity": multiplicity,
         "anova_focus_ratio": anova_focus,
         "anova_pooled": anova_pooled,
         "paradox_by_cell": paradox_by_cell,
@@ -856,7 +964,7 @@ def _export_mechanism_csv(analysis: Dict[str, Any], output_dir: str) -> str:
         "metabolism_discount", "predator_protection", "isolation_ratio",
         "n_seeds", "fitness_impact_mean", "fitness_impact_ci95",
         "extinction_rate", "cohens_d_treat_vs_ctrl", "km_median_survival",
-        "ttest_p", "significant_005",
+        "ttest_p", "significant_005", "bh_adjusted_p", "bh_reject_fdr005",
         "ctrl_fitness_mean", "treat_fitness_mean",
     ]
     rows = sorted(
@@ -881,6 +989,8 @@ def _export_mechanism_csv(analysis: Dict[str, Any], output_dir: str) -> str:
                 "km_median_survival": r["km_median_survival"],
                 "ttest_p": r["ttest_p"],
                 "significant_005": r["significant_005"],
+                "bh_adjusted_p": r.get("bh_adjusted_p"),
+                "bh_reject_fdr005": r.get("bh_reject_fdr005"),
                 "ctrl_fitness_mean": r["ctrl_fitness_mean"],
                 "treat_fitness_mean": r["treat_fitness_mean"],
             })

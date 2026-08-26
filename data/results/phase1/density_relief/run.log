@@ -1,0 +1,41 @@
+[*] Density-relief harshest-cell run (checkpointed)
+    config      : configs/calibrated.yaml (energy_value=50)
+    condition   : mech_md00_ppoff_r30  (metab_discount=0.0, predator_protection=False, isolation_ratio=30% (harshest cell))
+    seeds       : 30  gen x steps: 5 x 1000
+    total runs  : 30
+    checkpoint  : data/results/phase1/density_relief/checkpoint.jsonl
+    already done: 0 runs (resuming)
+    remaining   : 30 runs
+    workers     : 12
+    [1/30] seed=1411 impact=+0.1575 treat=ok ctrl=EXT | 5.8min elapsed, ETA 168min
+    [2/30] seed=1822 impact=+0.1068 treat=ok ctrl=ok | 6.1min elapsed, ETA 85min
+    [3/30] seed=2507 impact=+0.0338 treat=ok ctrl=ok | 6.2min elapsed, ETA 56min
+    [4/30] seed=1137 impact=-0.0859 treat=ok ctrl=ok | 6.4min elapsed, ETA 41min
+    [5/30] seed=2096 impact=+0.0331 treat=ok ctrl=ok | 6.7min elapsed, ETA 33min
+    [6/30] seed=1685 impact=+0.0320 treat=ok ctrl=ok | 7.6min elapsed, ETA 31min
+    [7/30] seed=1959 impact=+0.0081 treat=ok ctrl=ok | 8.3min elapsed, ETA 27min
+    [8/30] seed=2233 impact=+0.1760 treat=ok ctrl=EXT | 8.3min elapsed, ETA 23min
+    [9/30] seed=1548 impact=-0.0612 treat=ok ctrl=ok | 8.5min elapsed, ETA 20min
+    [10/30] seed=2370 impact=-0.0304 treat=ok ctrl=ok | 8.6min elapsed, ETA 17min
+    [11/30] seed=1274 impact=+0.1783 treat=ok ctrl=EXT | 8.7min elapsed, ETA 15min
+    [12/30] seed=1000 impact=+0.0770 treat=ok ctrl=EXT | 9.6min elapsed, ETA 14min
+    [13/30] seed=2644 impact=+0.1320 treat=ok ctrl=EXT | 11.4min elapsed, ETA 15min
+    [14/30] seed=2781 impact=-0.0437 treat=ok ctrl=ok | 12.5min elapsed, ETA 14min
+    [15/30] seed=3192 impact=+0.0842 treat=ok ctrl=EXT | 13.1min elapsed, ETA 13min
+    [16/30] seed=3055 impact=+0.2544 treat=ok ctrl=EXT | 13.1min elapsed, ETA 11min
+    [17/30] seed=2918 impact=+0.1020 treat=ok ctrl=ok | 13.3min elapsed, ETA 10min
+    [18/30] seed=3329 impact=-0.0249 treat=ok ctrl=ok | 13.9min elapsed, ETA 9min
+    [19/30] seed=3877 impact=+0.0301 treat=ok ctrl=ok | 14.9min elapsed, ETA 9min
+    [20/30] seed=3466 impact=+0.1387 treat=ok ctrl=ok | 15.2min elapsed, ETA 8min
+    [21/30] seed=3740 impact=-0.0050 treat=ok ctrl=ok | 15.2min elapsed, ETA 6min
+    [22/30] seed=3603 impact=-0.0172 treat=ok ctrl=ok | 16.5min elapsed, ETA 6min
+    [23/30] seed=4151 impact=+0.1153 treat=ok ctrl=EXT | 17.1min elapsed, ETA 5min
+    [24/30] seed=4288 impact=-0.1108 treat=EXT ctrl=ok | 17.6min elapsed, ETA 4min
+    [25/30] seed=4014 impact=+0.0155 treat=ok ctrl=ok | 18.2min elapsed, ETA 4min
+    [26/30] seed=4836 impact=+0.0828 treat=ok ctrl=EXT | 18.7min elapsed, ETA 3min
+    [27/30] seed=4425 impact=+0.0496 treat=ok ctrl=ok | 18.8min elapsed, ETA 2min
+    [28/30] seed=4699 impact=+0.0083 treat=ok ctrl=ok | 19.0min elapsed, ETA 1min
+    [29/30] seed=4562 impact=+0.0386 treat=ok ctrl=EXT | 19.1min elapsed, ETA 1min
+    [30/30] seed=4973 impact=+0.0386 treat=ok ctrl=ok | 19.5min elapsed, ETA 0min
+[*] Run done in 19.5 min
+[*] Checkpoint holds 30 completed runs. Analyze with scripts/analyze_density_relief.py

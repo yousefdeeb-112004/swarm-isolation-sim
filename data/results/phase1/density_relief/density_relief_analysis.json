@@ -1,0 +1,95 @@
+{
+  "n_seeds": 30,
+  "condition": "mech_md00_ppoff_r30",
+  "total_steps": 5000,
+  "downsample_every": 5,
+  "isolation_spans_global_steps": [
+    [
+      50,
+      1005
+    ],
+    [
+      1050,
+      2005
+    ],
+    [
+      2050,
+      3005
+    ],
+    [
+      3050,
+      4005
+    ],
+    [
+      4050,
+      5000
+    ]
+  ],
+  "extinction": {
+    "control": {
+      "n": 10,
+      "rate": 0.3333
+    },
+    "treatment": {
+      "n": 1,
+      "rate": 0.0333
+    }
+  },
+  "per_generation_mean_pop": {
+    "control": [
+      4.8,
+      5.17,
+      4.93,
+      7.23,
+      4.4
+    ],
+    "treatment": [
+      9.1,
+      8.87,
+      9.43,
+      8.23,
+      9.03
+    ]
+  },
+  "n_gridcells_ctrl_dead_treat_alive": 167,
+  "Q1_food_in_window": {
+    "label": "food: treat-ctrl, in-window, both alive",
+    "n_seeds_with_data": 30,
+    "mean_per_seed_diff": -0.1343,
+    "sd_per_seed_diff": 0.1581,
+    "t": -4.6518,
+    "p_value": 6.7e-05,
+    "n_seeds_treat_gt_ctrl": 4,
+    "n_seeds_total": 30
+  },
+  "Q1_food_off_window": {
+    "label": "food: treat-ctrl, off-window, both alive",
+    "n_seeds_with_data": 30,
+    "mean_per_seed_diff": 0.0304,
+    "sd_per_seed_diff": 0.2868,
+    "t": 0.58,
+    "p_value": 0.566414,
+    "n_seeds_treat_gt_ctrl": 12,
+    "n_seeds_total": 30
+  },
+  "Q2_energy_in_window": {
+    "label": "energy: treat-ctrl, in-window, both alive",
+    "n_seeds_with_data": 30,
+    "mean_per_seed_diff": 6.8348,
+    "sd_per_seed_diff": 2.6531,
+    "t": 14.1101,
+    "p_value": 0.0,
+    "n_seeds_treat_gt_ctrl": 30,
+    "n_seeds_total": 30
+  },
+  "Q3_population_in_window": {
+    "label": "population: treat-ctrl, in-window, both alive",
+    "n_seeds_with_data": 30,
+    "mean_per_seed_diff": 5.1066,
+    "sd_per_seed_diff": 5.9799,
+    "t": 4.6773,
+    "p_value": 6.2e-05,
+    "n_seeds_treat_gt_ctrl": 26,
+    "n_seeds_total": 30
+  }
+}
